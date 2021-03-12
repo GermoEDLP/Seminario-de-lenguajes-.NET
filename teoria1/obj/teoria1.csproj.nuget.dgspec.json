@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "restore": {
+    "/media/germob/Windows/Users/Ger y Nori/Documents/German/Facultad/Sem. .NET/proyectoDotNet/teoria1/teoria1.csproj": {}
+  },
+  "projects": {
+    "/media/germob/Windows/Users/Ger y Nori/Documents/German/Facultad/Sem. .NET/proyectoDotNet/teoria1/teoria1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/media/germob/Windows/Users/Ger y Nori/Documents/German/Facultad/Sem. .NET/proyectoDotNet/teoria1/teoria1.csproj",
+        "projectName": "teoria1",
+        "projectPath": "/media/germob/Windows/Users/Ger y Nori/Documents/German/Facultad/Sem. .NET/proyectoDotNet/teoria1/teoria1.csproj",
+        "packagesPath": "/home/germob/.nuget/packages/",
+        "outputPath": "/media/germob/Windows/Users/Ger y Nori/Documents/German/Facultad/Sem. .NET/proyectoDotNet/teoria1/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/germob/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
