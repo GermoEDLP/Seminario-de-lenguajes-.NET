@@ -445,7 +445,127 @@ namespace teoria1
 
             */
 
+            /*
+            EJERCICIO 19
+            ============
+
+             // 1. Valida. Las tres variables son creadas pero no inicializadas.
+             // int a, b, c;
+
+             // 2. Valida. Las cuatro variables son creadas pero no inicializadas.
+             // int a; int b; int c, d;
+
+             // 3. Valida. Las tres variables son creadas e inicializadas con los valores despues 
+             //    del igual para cada una.
+             // int a = 1; int b = 2; int c = 3;
+
+             // 4. Valido. Las tres variables son creadas e inicializadas con el valor de 1.
+             // int b; int c; int a = b = c = 1;
+
+             // 5. Valido. Las tres variables son creadas e inicializadas con el valor de 1.            
+             // int c; int a, b = c = 1;
+
+             // 6. Valido. Las tres variables son creadas y, a queda iniclaizada con 2 y b y c
+             //    quedan incializadas con 1.            
+             // int c; int a = 2, b = c = 1;
+
+             // 7. Valido. Las cuatro variables son creadas. a es inicializada con 2, d con 4 
+             //    las variables b y c no son inicializadas.
+             // int a = 2, b , c , d = 2 * a;
+
+             // 8. Invalido. Si se coloca comas (,), la palabra int en la declaración de b y c
+             //    son inecesarias. Si quiere dejarse las palabras int, deben cambiarse las comas
+             //    por punto y coma (;).
+             // int a = 2, int b = 3 , int c = 4;
+
+             // 9. Invalido. Problema similar al anterior pero al contrario. Para arreglarlo 
+             //    debemos colocar la palabra int antes de la b y c o cambiar los puntos y coma
+             //    por comas.
+             // int a = 2; b = 3 ; char = 4;
+
+             // 10. Invalido. No podemos asignar a una variable el valor de una variable sin 
+             //     inicializar. No estamos asignando nada.
+             // int a; int c = a;
+
+             // 11. Invalido. Dos variables de distinto tipo deben ser separadas por un punto 
+             //     al ser craedas.
+             // char c = 'A', string st = "Hola";
+
+             // 12. Valido. Las dos variables son creadas y la variable c se incializa con el 
+             //     caracter "A" y la variable st con el valor "Hola".
+             // char c = 'A', string st = "Hola";
+
+             // 13. Invalido. Al poner una coma, le decimos al codigo que la variable st será
+             //     de tipo char. No nos dejará asignar el valor "Hola" a una variable tipo char.
+             // char c = 'A', st = "Hola";
+            */
+
+            /*
+            EJERCICIO 20
+            ============
             
+            
+            int i = 0;
+            for (int i = 1; i <= 10;)
+            {
+                Console.WriteLine(i++);
+            }
+
+            // El problema se haya en que la variable i esta siendo declarada 2 veces. Por lo que
+            // debemos eliminar una declaración o cambiarle el nombre. Tambien, se le esta asignando
+            // un valor 2 veces, una al incializarla y otra al definir el for, por lo que podemos 
+            // trabajar mejor eso.
+
+            // Solución a) Solo declararla una vez
+            int i = 0;
+            for (i = 1; i <= 10;)
+            {
+                Console.WriteLine(i++);
+            }
+
+            //Solución b) Cambiarle el nombre al indice del for
+            int i = 0;
+            for (int j = 1; i <= 10;)
+            {
+                Console.WriteLine(j++);
+            }
+
+            //Solución c) Definirla e inicializarla dentro del ciclo
+            for ( int i = 1; i <= 10;)
+            {
+                Console.WriteLine(i++);
+            }
+            */
+
+            /*
+            EJERCICIO 21
+            ============    
+            
+            int i = 1;
+            if(--i == 0){
+                Console.WriteLine("Cero");
+            }
+            if(i++ == 0){
+                Console.WriteLine("Cero");
+            }
+            Console.WriteLine(i);
+
+            
+            // En este caso, vemos como se ejecutan los operadores diferenciando los postfijos (x++)
+            // y los prefijos (++x).
+
+            // Opeadores prefijos (++x): El resultado de ++x es el valor de x después de la operación,
+            // por eso --i == 0 es cierto, ya que la operación de resta se realiza y despues se verifica
+            // la igualdad con el cero.
+
+            // Operadores postfijos (x++): El resultado de x++ es el valor de x antes de la operación, por
+            // eso i++ == 0 tambien es cierto, ya que primero evalua si i es igual a cero y despues 
+            // la incrementa.
+            */
+            
+
+            
+
 
         }
     }
