@@ -338,14 +338,114 @@ namespace teoria1
             */
 
 
+            /*
+            EJERCICIO 15
+            ============
+            
+            Console.WriteLine("Ingrese un año: ");
+            int ano = int.Parse(Console.ReadLine());
+
+            if (ano % 100 == 0)
+            {
+                if (ano % 400 == 0)
+                {
+                    Console.WriteLine("El año es Bisiesto");
+                }
+                else
+                {
+                    Console.WriteLine("El año NO es Bisiesto");
+                }
+            }
+            else if (ano % 4 == 0)
+            {
+                Console.WriteLine("El año es Bisiesto");
+            }
+            else
+            {
+                Console.WriteLine("El año NO es Bisiesto");
+            }
+            */
 
 
+            /*
+            EJERCICIO 16
+            ============
+            
+            int a = 19, b=0;
+            if ((b != 0) && (a/b > 5)) Console.WriteLine(a/b);
+
+            EL problema radica en el operador lógico AND (&). Cuando es solo un caracter (&), 
+            el operador evalua siempre ambos operandos, ocurriendo que si b = 0, entonces 
+            retorne un error porque no se puede dividir por cero. Pero si colocamos doble 
+            operador (&&), se lo conoce como operador logico condicional y evalua en etapas:
+            Si el primer operando es ciento, entonces procede a verificar el segundo, sino no lo 
+            verifica, evitando dividir por cero en nuestro ejemplo.
+            */
+
+            /*
+            EJERCICIO 17
+            ============
+            
+            int a = 5, b = 6, c;
+            c = (a<b) ? a : b;
+            Console.WriteLine(c);
+            */
+
+            /*
+            EJERCICIO 18
+            ============
+            
+                        for (int i = 0; i <= 4; i++)
+            {
+                string st2;
+                string st1 = i < 3 ? i == 2 ? "dos" : i == 1 ? "uno" : "< 1" : i < 4 ? "tres" : "> 3";
+                
+                if (i < 3)
+                {
+                    if (i == 2)
+                    {
+                        st2 = "dos";
+                    }
+                    else
+                    {
+                        if (i == 1)
+                        {
+                            st2 = "uno";
+                        }
+                        else
+                        {
+                            st2 = "< 1";
+                        }
+                    }
+                }
+                else
+                {
+                    if (i < 4)
+                    {
+                        st2 = "tres";
+                    }
+                    else
+                    {
+                        st2 = "> 3";
+                    }
+                }
+
+                Console.WriteLine("Una linea: " + st1 + "| Anidada: " + st2);
+
+            }
 
 
+            // "<1"
+            // "uno"
+            // "dos"
+            // "tres"
+            // ">3"
 
+            // Abajo se muestra la comparativa con la solución anidada de if(), else if() y else
 
+            */
 
-
+            
 
         }
     }
