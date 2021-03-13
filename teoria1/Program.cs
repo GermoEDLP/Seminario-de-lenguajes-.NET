@@ -183,10 +183,62 @@ namespace teoria1
             EJERCICIO 08
             ============
             
-            
-            */
+            // Teniendo en cuneta que debemos declararala correctamente, se puede asegurar que las
+            // lineas tienen sentido y vana a funcionar: Imprimiendo lo que se escriba por consola.
             string st;
             Console.WriteLine(st=Console.ReadLine());
+            */
+
+            /*
+            EJERCICIO 09
+            ============
+            
+            Console.WriteLine("Ingrese la primera palabra: ");
+            string st1 = Console.ReadLine();
+            Console.WriteLine("Ingrese la segunda palabra: ");
+            string st2 = Console.ReadLine();
+            
+            */
+
+            Console.WriteLine("Ingrese las palabras separadas por un espacio: ");
+            string st = Console.ReadLine();
+            string st1 = st.Split(" ")[0];
+            string st2 = st.Split(" ")[1];
+
+
+            bool ok = true;
+
+            if (st1.Length != st2.Length)
+            {
+                ok = false;
+            }
+            else
+            {
+                for (int i = 0; i < st1.Length; i++)
+                {
+                    if (st1[i] != st2[st1.Length - 1 - i])
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+
+                if (ok)
+                {
+                    Console.WriteLine("Las palabras " + st1 + " y " + st2 + ", son simetricas");
+                }
+                else
+                {
+                    Console.WriteLine("Las palabras " + st1 + " y " + st2 + ", NO son simetricas");
+
+                }
+
+            }
+
+
+
+
+
 
 
 
