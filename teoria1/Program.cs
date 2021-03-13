@@ -80,10 +80,6 @@ namespace teoria1
             EJERCICIO 04
             ============
             
-
-
-            
-            */
             Console.WriteLine("Ingrese su nombre por favor: ");
             string nombre = Console.ReadLine();
             if (nombre == "")
@@ -96,18 +92,151 @@ namespace teoria1
                 Console.WriteLine("Hola " + nombre + ". Bienvenidx!");
             };
 
+            
+            */
+
+            /*
+            EJERCICIO 05
+            ============
+            a)
+
+              Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre = Console.ReadLine();
+            if (nombre == "Juan")
+            {
+                Console.WriteLine("Hola amigo");
+            }
+            else if (nombre == "María")
+            {
+                Console.WriteLine("Buen día señora");
+            }
+            else if (nombre == "Alberto")
+            {
+                Console.WriteLine("Hola Alberto");
+            }
+            else if (nombre == "")
+            {
+                Console.WriteLine("Hola mundo");
+            }
+            else
+            {
+                Console.WriteLine("Buen día " + nombre);
+            }
+
+            b)
 
 
 
+            
+            */
 
 
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre = Console.ReadLine();
 
+            switch (nombre)
+            {
+                case "Juan":
+                    Console.WriteLine("Hola amigo");
+                    break;
+                case "María":
+                    Console.WriteLine("Buen día señora");
+                    break;
+                case "Alberto":
+                    Console.WriteLine("Hola Alberto");
+                    break;
+                case "":
+                    Console.WriteLine("Hola mundo");
+                    break;
+                default:
+                    Console.WriteLine("Buen día " + nombre);
+                    break;
+            }
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre1 = Console.ReadLine();
 
+            switch (nombre1)
+            {
+                case "Juan":
+                    Console.WriteLine("Hola amigo");
+                    break;
+                case "María":
+                    Console.WriteLine("Buen día señora");
+                    break;
+                case "Alberto":
+                    Console.WriteLine("Hola Alberto");
+                    break;
+                case "":
+                    Console.WriteLine("Hola mundo");
+                    break;
+                default:
+                    Console.WriteLine("Buen día " + nombre1);
+                    break;
+            }
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre2 = Console.ReadLine();
 
+            switch (nombre2)
+            {
+                case "Juan":
+                    Console.WriteLine("Hola amigo");
+                    break;
+                case "María":
+                    Console.WriteLine("Buen día señora");
+                    break;
+                case "Alberto":
+                    Console.WriteLine("Hola Alberto");
+                    break;
+                case "":
+                    Console.WriteLine("Hola mundo");
+                    break;
+                default:
+                    Console.WriteLine("Buen día " + nombre2);
+                    break;
+            }
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre3 = Console.ReadLine();
 
+            switch (nombre3)
+            {
+                case "Juan":
+                    Console.WriteLine("Hola amigo");
+                    break;
+                case "María":
+                    Console.WriteLine("Buen día señora");
+                    break;
+                case "Alberto":
+                    Console.WriteLine("Hola Alberto");
+                    break;
+                case "":
+                    Console.WriteLine("Hola mundo");
+                    break;
+                default:
+                    Console.WriteLine("Buen día " + nombre3);
+                    break;
+            }
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre4 = Console.ReadLine();
 
-
-
+            switch (nombre4)
+            {
+                case "Juan":
+                    Console.WriteLine("Hola amigo");
+                    break;
+                case "María":
+                    Console.WriteLine("Buen día señora");
+                    break;
+                case "Alberto":
+                    Console.WriteLine("Hola Alberto");
+                    break;
+                case "":
+                    Console.WriteLine("Hola mundo");
+                    break;
+                default:
+                    Console.WriteLine("Buen día " + nombre4);
+                    break;
+            }
+     
 
         }
     }
