@@ -385,19 +385,19 @@ int b; int c; int a = b = c = 1;
 ~~~
 int c; int a, b = c = 1;
 ~~~
-6. Valido. Las tres variables son creadas y, a queda iniclaizada con 2 y b y c quedan incializadas con 1.            
+6. Valido. Las tres variables son creadas y, ***a*** queda iniclaizada con 2 y ***b*** y ***c*** quedan incializadas con 1.            
 ~~~
 int c; int a = 2, b = c = 1;
 ~~~
-7. Valido. Las cuatro variables son creadas. a es inicializada con 2, d con 4 las variables b y c no son inicializadas.
+7. Valido. Las cuatro variables son creadas. ***a*** es inicializada con 2, ***d*** con 4 las variables ***b*** y ***c*** no son inicializadas.
 ~~~
 int a = 2, b , c , d = 2 * a;
 ~~~
-8. Invalido. Si se coloca comas (,), la palabra int en la declaración de b y c son inecesarias. Si quiere dejarse las palabras int, deben cambiarse las comas por punto y coma (;).
+8. Invalido. Si se coloca comas (,), la palabra ***int*** en la declaración de ***b*** y ***c*** son inecesarias. Si quiere dejarse las palabras ***int***, deben cambiarse las comas por punto y coma (;).
 ~~~
 int a = 2, int b = 3 , int c = 4;
 ~~~
-9. Invalido. Problema similar al anterior pero al contrario. Para arreglarlo debemos colocar la palabra int antes de la b y c o cambiar los puntos y coma por comas.
+9. Invalido. Problema similar al anterior pero al contrario. Para arreglarlo debemos colocar la palabra ***int*** antes de la ***b*** y ***c*** o cambiar los puntos y coma por comas.
 ~~~
 int a = 2; b = 3 ; char = 4;
 ~~~
@@ -405,15 +405,15 @@ int a = 2; b = 3 ; char = 4;
 ~~~
 int a; int c = a;
 ~~~
-11. Invalido. Dos variables de distinto tipo deben ser separadas por un punto al ser craedas.
+11. Invalido. Dos variables de distinto tipo deben ser separadas por un punto y coma al ser creadas.
 ~~~
 char c = 'A', string st = "Hola";
 ~~~
-12. Valido. Las dos variables son creadas y la variable c se incializa con el caracter "A" y la variable st con el valor "Hola".
+12. Valido. Las dos variables son creadas y la variable ***c*** se incializa con el caracter "A" y la variable ***st*** con el valor "Hola".
 ~~~
 char c = 'A', string st = "Hola";
 ~~~
-13. Invalido. Al poner una coma, le decimos al codigo que la variable st será de tipo char. No nos dejará asignar el valor "Hola" a una variable tipo char.
+13. Invalido. Al poner una coma, le decimos al codigo que la variable ***st*** será de tipo char. No nos dejará asignar el valor "Hola" a una variable tipo char.
 ~~~
 char c = 'A', st = "Hola";
 ~~~
