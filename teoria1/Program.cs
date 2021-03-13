@@ -6,7 +6,84 @@ namespace teoria1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            /*
+            EJERCICIO 01
+            ============
+            
+            Write       => Escribe la representación de texto del valor o 
+                           valores especificados en el flujo de salida estándar.
+
+            WriteLine   => Escribe los datos especificados, seguidos del 
+                           terminador de línea actual, en el flujo de salida estándar.
+
+            Diferencia entre ambos  => El método write genera uno o más valores en 
+                                       la pantalla sin un nuevo carácter de línea. Esto 
+                                       significa que cualquier salida posterior se imprimirá 
+                                       en la misma línea. Mientras que cualquier salida posterior
+                                       al writeLine, se imprimira debajo por realizar un salto de
+                                       linea como ultima acción
+            
+            ReadKey     => Obtiene la siguiente tecla de carácter o de función presionada por el 
+                           usuario. La tecla presionada se muestra en la ventana de la consola.
+            
+            //Es un poco de trampa porque sino se sobreescriben las lineas
+            Console.ReadKey();
+            Console.Write("Hola ");
+            Console.ReadKey();
+            Console.WriteLine("Hola Mundo");
+
+            */
+
+            /*
+            EJERCICIO 02
+            ============
+            
+            Secuencias de escape  => Son las combinaciones de caracteres que constan de una barra 
+                                     invertida ( \ ) seguida de una letra o de una combinación de 
+                                     dígitos. Para representar un carácter de nueva línea, comillas 
+                                     simples u otros caracteres determinados en una constante de 
+                                     carácter, debe utilizar secuencias de escape. Una secuencia de 
+                                     escape se considera un carácter único y, por lo tanto, es válida 
+                                     como una constante de carácter.
+
+            \n  => Nueva linea: El cursor se coloca debajo de la linea impresa (Como si fuera un ENTER)
+
+            \t  => Tab Horizonal: EL cursor se dezplaza horizontalmente luego de realzar la impresión
+
+            \"  => Comillas dobles: Este caracter no se puede realizar de manera convencional por estar
+                   reservado para indicar inicio y fin de los string, por lo que si se quiere imprimir
+                   en pantalla, se debe utilizar esta secuencia de escape.
+
+            \\  => Barra invertida: Idem que en el caso de la comilla doble pero con la barra invertida.
+
+            string nombre = "German";
+            double total = 55.36;
+            Console.Write("Hola\n");
+            Console.WriteLine("\"" + nombre + "\"");
+            Console.Write("Este es tu saldo total:\t$" + total);
+
+            */
+
+            
+            
+                string st = "c:\\windows\\system";
+                Console.WriteLine(st);
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
+
