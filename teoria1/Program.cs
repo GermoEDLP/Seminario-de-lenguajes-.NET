@@ -65,11 +65,37 @@ namespace teoria1
 
             */
 
+            /*
+            EJERCICIO 03
+            ============
             
+            Se retira el @ y se agregan las barras invertidas necesarias para completar la secuencia de escape.
+
             
                 string st = "c:\\windows\\system";
                 Console.WriteLine(st);
+            */
+
+            /*
+            EJERCICIO 04
+            ============
             
+
+
+            
+            */
+            Console.WriteLine("Ingrese su nombre por favor: ");
+            string nombre = Console.ReadLine();
+            if (nombre == "")
+            {
+
+                Console.WriteLine("Hola mundo");
+            }
+            else
+            {
+                Console.WriteLine("Hola " + nombre + ". Bienvenidx!");
+            };
+
 
 
 
