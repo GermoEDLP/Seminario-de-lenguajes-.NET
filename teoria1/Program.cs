@@ -289,14 +289,32 @@ namespace teoria1
             */
 
 
+            /*
+            EJERCICIO 12
+            ============
+            
             Console.WriteLine("Ingrese el primer numero: ");
             int num1 = int.Parse(Console.ReadLine());
             Console.WriteLine("Ingrese el segundo numero: ");
             int num2 = int.Parse(Console.ReadLine());
             int total = num1 + num2;
-
             Console.WriteLine("El resultado de la suma es: " + total);
 
+            */
+
+            /*
+            EJERCICIO 13
+            ============
+            
+            
+            */
+
+            Console.WriteLine("Ingrese el primer numero: ");
+            double num1 = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el segundo numero: ");
+            double num2 = double.Parse(Console.ReadLine());
+            double total = num1 + num2;
+            Console.WriteLine("El resultado de la suma es: " + total);
 
 
 
