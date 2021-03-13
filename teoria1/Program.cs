@@ -306,15 +306,37 @@ namespace teoria1
             EJERCICIO 13
             ============
             
-            
-            */
-
             Console.WriteLine("Ingrese el primer numero: ");
             double num1 = double.Parse(Console.ReadLine());
             Console.WriteLine("Ingrese el segundo numero: ");
             double num2 = double.Parse(Console.ReadLine());
             double total = num1 + num2;
             Console.WriteLine("El resultado de la suma es: " + total);
+            
+            */
+
+            /*
+            EJERCICIO 14
+            ============
+            
+            Console.WriteLine("Ingrese el numero: ");
+
+            // Esta linea convierte el string retornado por el método ReadLine() (ingresado por el usuario)
+            // a un entero para poder multiplicarlo por 365. Luego, el resultado es convertido a un string, 
+            // por medio de la función toString().
+            string num = (int.Parse(Console.ReadLine()) * 365).ToString();
+
+            string numRev = "";
+            for(int i = 0; i < num.Length; i++){
+                //A medida que se sucede el bucle, se le agrega a la variable numero con siguiente mayor 
+                relevancia, ademas de un espacio.
+                numRev += num[num.Length-1-i] + " ";
+            };
+
+            Console.WriteLine(numRev);
+            
+            */
+
 
 
 
