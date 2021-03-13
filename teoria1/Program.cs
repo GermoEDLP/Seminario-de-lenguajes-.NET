@@ -252,6 +252,10 @@ namespace teoria1
             
             */
 
+            /*
+            EJERCICIO 11
+            ============
+            
             Console.WriteLine("10/3 = " + 10 / 3);
             Console.WriteLine("10.0/3 = " + 10.0 / 3);
             Console.WriteLine("10/3.0 = " + 10 / 3.0);
@@ -261,6 +265,38 @@ namespace teoria1
             double c = 3;
             Console.WriteLine("Si c es una variable double, c=3");
             Console.WriteLine("entonces a/c = " + a / c);
+
+            División entre enteros => Para los operandos de tipos enteros, el resultado 
+                                      del operador / es de un tipo entero y equivale al 
+                                      cociente de los dos operandos redondeados hacia cero.
+                                      Para obtener el cociente de los dos operandos como 
+                                      número de punto flotante, debemos usar el tipo float, 
+                                      double o decimal.
+
+            División de punto flotante => Para los tipos float, double y decimal, el resultado 
+                                          del operador / es el cociente de los dos operandos. 
+                                          Si uno de los operandos es decimal, otro operando no 
+                                          puede ser float ni double, ya que ni float ni double 
+                                          se convierte de forma implícita a decimal. Debe convertir 
+                                          explícitamente el operando float o double al tipo decimal.
+
+            Suma de distintos tipos de dato => Si dos numeros se suman, se obtiene la suam aritmetica
+                                               Si dos strings (o caracteres) se suman, se obtiene la 
+                                               concatenación de ambos.
+                                               Si un numero y un string se suman, el numero es convertido
+                                               a string y es concatenado con el otro string. 
+            
+            */
+
+
+            Console.WriteLine("Ingrese el primer numero: ");
+            int num1 = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el segundo numero: ");
+            int num2 = int.Parse(Console.ReadLine());
+            int total = num1 + num2;
+
+            Console.WriteLine("El resultado de la suma es: " + total);
+
 
 
 
