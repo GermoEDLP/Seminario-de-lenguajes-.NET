@@ -124,13 +124,6 @@ namespace teoria1
             }
 
             b)
-
-
-
-            
-            */
-
-
             Console.WriteLine("Ingrese su nombre por favor: ");
             string nombre = Console.ReadLine();
 
@@ -152,91 +145,50 @@ namespace teoria1
                     Console.WriteLine("Buen día " + nombre);
                     break;
             }
-            Console.WriteLine("Ingrese su nombre por favor: ");
-            string nombre1 = Console.ReadLine();
+            
+            */
 
-            switch (nombre1)
-            {
-                case "Juan":
-                    Console.WriteLine("Hola amigo");
-                    break;
-                case "María":
-                    Console.WriteLine("Buen día señora");
-                    break;
-                case "Alberto":
-                    Console.WriteLine("Hola Alberto");
-                    break;
-                case "":
-                    Console.WriteLine("Hola mundo");
-                    break;
-                default:
-                    Console.WriteLine("Buen día " + nombre1);
-                    break;
-            }
-            Console.WriteLine("Ingrese su nombre por favor: ");
-            string nombre2 = Console.ReadLine();
+            /*
+            EJERCICIO 06
+            ============
+            Console.WriteLine("Ingrese cadenas de texto: ");
+            bool continua = true;
 
-            switch (nombre2)
+            while (continua)
             {
-                case "Juan":
-                    Console.WriteLine("Hola amigo");
-                    break;
-                case "María":
-                    Console.WriteLine("Buen día señora");
-                    break;
-                case "Alberto":
-                    Console.WriteLine("Hola Alberto");
-                    break;
-                case "":
-                    Console.WriteLine("Hola mundo");
-                    break;
-                default:
-                    Console.WriteLine("Buen día " + nombre2);
-                    break;
+                string st = Console.ReadLine();
+                if (st != "")
+                {
+                    Console.WriteLine("Cantidad de caracteres ingresados: " + st.Length);
+                }
+                else
+                {
+                    continua = false;
+                }
             }
-            Console.WriteLine("Ingrese su nombre por favor: ");
-            string nombre3 = Console.ReadLine();
+            
+            */
 
-            switch (nombre3)
-            {
-                case "Juan":
-                    Console.WriteLine("Hola amigo");
-                    break;
-                case "María":
-                    Console.WriteLine("Buen día señora");
-                    break;
-                case "Alberto":
-                    Console.WriteLine("Hola Alberto");
-                    break;
-                case "":
-                    Console.WriteLine("Hola mundo");
-                    break;
-                default:
-                    Console.WriteLine("Buen día " + nombre3);
-                    break;
-            }
-            Console.WriteLine("Ingrese su nombre por favor: ");
-            string nombre4 = Console.ReadLine();
+            /*
+            EJERCICIO 07
+            ============
+            // Imprime la cantidad de caracteres que tiene la cadena, en este caso 3.
+            System.Console.WriteLine("100".Length); 
+            
+            // 3
 
-            switch (nombre4)
-            {
-                case "Juan":
-                    Console.WriteLine("Hola amigo");
-                    break;
-                case "María":
-                    Console.WriteLine("Buen día señora");
-                    break;
-                case "Alberto":
-                    Console.WriteLine("Hola Alberto");
-                    break;
-                case "":
-                    Console.WriteLine("Hola mundo");
-                    break;
-                default:
-                    Console.WriteLine("Buen día " + nombre4);
-                    break;
-            }
-     
+            */
+
+            /*
+            EJERCICIO 08
+            ============
+            
+            
+            */
+            string st;
+            Console.WriteLine(st=Console.ReadLine());
+
+
 
         }
     }
