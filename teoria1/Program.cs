@@ -193,12 +193,14 @@ namespace teoria1
             EJERCICIO 09
             ============
             
-            Console.WriteLine("Ingrese la primera palabra: ");
-            string st1 = Console.ReadLine();
-            Console.WriteLine("Ingrese la segunda palabra: ");
-            string st2 = Console.ReadLine();
-            
-            */
+            Esta forma de captar las palabras a analizar esta bien, pero en la practica dice que las palabras
+            deben ser ingresadas separadas por un blanco, por lo que no estaría del todo bien, mas abajo se 
+            muestra la forma que finalmente se adoptó.
+
+            // Console.WriteLine("Ingrese la primera palabra: ");
+            // string st1 = Console.ReadLine();
+            // Console.WriteLine("Ingrese la segunda palabra: ");
+            // string st2 = Console.ReadLine();
 
             Console.WriteLine("Ingrese las palabras separadas por un espacio: ");
             string st = Console.ReadLine();
@@ -210,7 +212,7 @@ namespace teoria1
 
             if (st1.Length != st2.Length)
             {
-                ok = false;
+                Console.WriteLine("Las palabras " + st1 + " y " + st2 + ", NO son simetricas y ni siquiera comparten la misma cantidad de caracteres");
             }
             else
             {
@@ -234,6 +236,17 @@ namespace teoria1
                 }
 
             }
+
+            
+            */
+
+            for(int i = 1; i <= 1000; i++){
+                if(i%17 == 0 || i%29==0){
+                    Console.WriteLine(i);
+                }
+            }
+
+
 
 
 
