@@ -167,7 +167,7 @@ string st2 = st.Split(" ")[1];
 bool ok = true;
 if (st1.Length != st2.Length)
 {
-    Console.WriteLine("Las palabras " + st1 + " y " + st2 + ", NO son simetricas y ni siquiera comparten la miscantidad de caracteres");
+    Console.WriteLine("Las palabras " + st1 + " y " + st2 + ", NO son simetricas y ni siquiera comparten la misma cantidad de caracteres");
 }
 else
 {
