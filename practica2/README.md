@@ -379,7 +379,7 @@ static void Fac(int n, out int r)
 }
 ~~~ 
 
-## Ejercicio 17
+## Ejercicio 18
 
 Primero generamos un programa para recibir los argumentos y mostrar en pantalla los numeros antes y despues del Swap:
 ~~~
@@ -403,7 +403,7 @@ static void Swap(ref int a, ref int b)
 }
 ~~~ 
 
-## Ejercicio 18
+## Ejercicio 19
 
 Primero generamos un programa para imprimir lo que se pide mediante le método Imprimir():
 ~~~
