@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections;
+using System.Globalization;
 
 namespace practica3
 {
@@ -728,8 +729,218 @@ k = Console.ReadKey(true);
         }
         */
 
+        /*
+        EJERCICIO 16
+        ============
+
+                static void Main()
+            {
+                // Inicializa los controaldores
+                bool continua = true;
+                int total = 0;
+                //EL ciclo while terminara una vez se ingrese un caracter vacio y eso cambie la bandera "Continua"
+                while (continua)
+                {
+                    try
+                    {
+                        Console.WriteLine("Ingrese numeros por favor: ");
+                        string entrada = Console.ReadLine();
+                        //Evalua que no hayan ingresado un caracter vacio
+                        if (entrada.Length == 0)
+                        {
+                            // Si es vacio, finaliza el "continua" y retorna el total
+                            Console.WriteLine("Total: " + total);
+                            continua = false;
+                        }
+                        else
+                        {
+                            // Si no es caracter vacio, lo convierte en entero y lo suma al total
+                            total = total + analizarEntrada(entrada);
+                            Console.WriteLine("Numero ingresado: {0} - Suma total: {1}", entrada, total);
+
+                        }
+                    }
+
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("ERROR: Ingrese un valor numerico entero. (Error: {0})", e.Message);
+                        Console.WriteLine();
+                    }
+
+
+                }
+            }
+
+            static int analizarEntrada(string entrada)
+            {
+                // Si no es entero, esta linea lanza una excepcion que es capturaa por el catch
+                return Int32.Parse(entrada);
+            }
+
+    */
+
+            /*
+        EJERCICIO 17
+        ============
+        
+        static void Main(string[] args)
+        {
+            // Defino los operadores que voy a admitir
+            string[] operadores = new string[4] { "+", "-", "/", "*" };
+            // Utilizamos un tipo nullable para trabajar sobre la posibilidad de no ser calculado
+            double? total = null;
+            bool continua = true;
+            // Inicio el ciclo de obtención de expresiones
+            while (continua)
+            {
+                Console.WriteLine("Introduzca una operación básica de dos terminos ('fin' para terminar): ");
+        
+                string expresion = Console.ReadLine();
+                // Corta el ciclo si determina el 'fin'
+                if (expresion == "fin")
+                {
+                    continua = false;
+                    break;
+                }
+                try
+                {
+                    // Evalua cada operador de la lista de operadores
+                    for (int i = 0; i < operadores.Length; i++)
+                    {
+                        // Envia a calcular cada operador
+                        calcular(operadores[i], expresion, ref total);
+                    }
+                    if (total == null)
+                    {
+                        // Si no se cambio el valor, significa que no hay operadores conocidos en expresión
+                        // entonces lanzo una excepcion
+                        throw new Exception("La expresión no tiene ningún operador conocido");
+                    }
+                    Console.WriteLine($"Total: {total:0.00}");
+                }
+                catch (Exception e)
+                {
+                    // Excepción manejada desde el método que llama
+                    Console.WriteLine("Excepción manejada en el padre. Error: {0}", e.Message);
+                }
+
+                static void calcular(string operador, string expresion, ref double? total)
+                {
+                    // Defino el provedor de formato para la conversión de string a double.
+                    // Basicamente, que simbolo usará para identificar los decimales.
+                    NumberFormatInfo provider = new NumberFormatInfo();
+                    provider.NumberDecimalSeparator = ".";
+                    provider.NumberGroupSizes = new int[] { 3 };
+                    // Evaluo si el operador esta en la expresión
+                    if (expresion.IndexOf(operador) != -1)
+                    {
+                        // Separo los terminos de la operación usando el operador
+                        string[] terminos = expresion.Split(operador);
+                        try
+                        {
+                            // Calculo según sea el operador
+                            switch (operador)
+                            {
+                                case "+":
+                                    total = Convert.ToDouble(terminos[0], provider) + Convert.ToDouble(terminos[1], provider);
+                                    break;
+                                case "-":
+                                    total = Convert.ToDouble(terminos[0], provider) - Convert.ToDouble(terminos[1], provider);
+                                    break;
+                                case "/":
+                                    total = Convert.ToDouble(terminos[0], provider) / Convert.ToDouble(terminos[1], provider);
+                                    break;
+                                case "*":
+                                    total = Convert.ToDouble(terminos[0], provider) * Convert.ToDouble(terminos[1], provider);
+                                    break;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            // Excepción de error de conversión manejada y propagada.
+                            Console.WriteLine("La expresión no es valida.");
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+*/
+
+        /*
+        EJERCICIO 18
+        ============
+        
+        static void Main(string[] args)
+        {
+            try
+            {
+                Metodo1();
+            }
+            catch
+            {
+                Console.WriteLine("Método 1 propagó una excepción no tratada");
+            }
+            try
+            {
+                Metodo2();
+            }
+            catch
+            {
+                Console.WriteLine("Método 2 propagó una excepción no tratada");
+            }
+            try
+            {
+                Metodo3();
+            }
+            catch
+            {
+                Console.WriteLine("Método 3 propagó una excepción");
+            }
+        }
+        static void Metodo1()
+        {
+            object obj = "hola";
+            try
+            {
+                int i = (int)obj;
+            }
+            finally
+            {
+                Console.WriteLine("Bloque finally en Metodo1");
+            }
+        }
+        static void Metodo2()
+        {
+            object obj = "hola";
+            try
+            {
+                int i = (int)obj;
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Overflow");
+            }
+        }
+        static void Metodo3()
+        {
+            object obj = "hola";
+            try
+            {
+                int i = (int)obj;
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine("Excepción InvalidCast en Metodo3");
+                throw;
+            }
+        }
+
+        */
 
 
 
     }
+
 }

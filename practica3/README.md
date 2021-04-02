@@ -748,3 +748,214 @@ static void Main()
 
 Al intentar dividir un entero por cero, se produce una Excepción del tipo DivideByZeroException. Para evitar la excepción, debemos asegurarnos de que el denominador de una operación de división con valores enteros sea distinto de cero. La división de un valor de punto flotante (single o double) por cero no produce una excepción; da como resultado un valor infinito positivo, infinito negativo o no es un número (NaN), de acuerdo con las reglas de la aritmética IEEE 754.
 En este caso, la primera linea da como resultado un infinito positivo y la segunda arroja una excepcion de tipo DivideByZeroException.
+
+
+## Ejercicio 16
+
+~~~
+static void Main()
+{
+    // Inicializa los controaldores
+    bool continua = true;
+    int total = 0;
+    //EL ciclo while terminara una vez se ingrese un caracter vacio y eso cambie la "Continua"
+    while (continua)
+    {
+        try
+        {
+            Console.WriteLine("Ingrese numeros por favor: ");
+            string entrada = Console.ReadLine();
+            //Evalua que no hayan ingresado un caracter vacio
+            if (entrada.Length == 0)
+            {
+                // Si es vacio, finaliza el "continua" y retorna el total
+                Console.WriteLine("Total: " + total);
+                continua = false;
+            }
+            else
+            {
+                // Si no es caracter vacio, lo convierte en entero y lo suma al total
+                total = total + analizarEntrada(entrada);
+                Console.WriteLine("Numero ingresado: {0} - Suma total: {1}", entrada, total);
+            }
+        }
+        catch (FormatException e)
+        {
+            Console.WriteLine();
+            Console.WriteLine("ERROR: Ingrese un valor numerico entero. (Error: {0})", e.Message);
+            Console.WriteLine();
+        }
+    }
+}
+static int analizarEntrada(string entrada)
+{
+    // Si no es entero, esta linea lanza una excepcion que es capturaa por el catch
+    return Int32.Parse(entrada);
+}
+~~~
+
+
+## Ejercicio 17
+
+~~~
+static void Main(string[] args)
+{
+    // Defino los operadores que voy a admitir
+    string[] operadores = new string[4] { "+", "-", "/", "*" };
+    // Utilizamos un tipo nullable para trabajar sobre la posibilidad de no ser calculado
+    double? total = null;
+    bool continua = true;
+    // Inicio el ciclo de obtención de expresiones
+    while (continua)
+    {
+        Console.WriteLine("Introduzca una operación básica de dos terminos ('fin' para terminar): ");
+        string expresion = Console.ReadLine();
+        // Corta el ciclo si determina el 'fin'
+        if(expresion=="fin"){
+            continua = false;
+            break;
+        }
+        try
+        {
+            // Evalua cada operador de la lista de operadores
+            for (int i = 0; i < operadores.Length; i++)
+            {
+                // Envia a calcular cada operador
+                calcular(operadores[i], expresion, ref total);
+            }
+            if(total==null){
+                // Si no se cambio el valor, significa que no hay operadores conocidos en expresión
+                // entonces lanzo una excepcion
+                throw new Exception("La expresión no tiene ningún operador conocido");
+            }
+            Console.WriteLine($"Total: {total:0.00}");
+        }
+        catch (Exception e)
+        {
+            // Excepción manejada desde el método que llama
+            Console.WriteLine("Excepción manejada en el padre. Error: {0}", e.Message);
+        }
+
+static void calcular(string operador, string expresion, ref double? total)
+{
+    // Defino el provedor de formato para la conversión de string a double.
+    // Basicamente, que simbolo usará para identificar los decimales.
+    NumberFormatInfo provider = new NumberFormatInfo();
+    provider.NumberDecimalSeparator = ".";
+    provider.NumberGroupSizes = new int[] { 3 };
+    // Evaluo si el operador esta en la expresión
+    if (expresion.IndexOf(operador) != -1)
+    {
+        // Separo los terminos de la operación usando el operador
+        string[] terminos = expresion.Split(operador);
+        try
+        {
+            // Calculo según sea el operador
+            switch (operador)
+            {
+                case "+":
+                    total = Convert.ToDouble(terminos[0], provider) + Convert.ToDouble(terminos[1], provider);
+                    break;
+                case "-":
+                    total = Convert.ToDouble(terminos[0], provider) - Convert.ToDouble(terminos[1], provider);
+                    break;
+                case "/":
+                    total = Convert.ToDouble(terminos[0], provider) / Convert.ToDouble(terminos[1], provider);
+                    break;
+                case "*":
+                    total = Convert.ToDouble(terminos[0], provider) * Convert.ToDouble(terminos[1], provider);
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            // Excepción de error de conversión manejada y propagada.
+            Console.WriteLine("La expresión no es valida.");
+            throw;
+        }
+    }
+}
+}
+}
+~~~
+
+
+## Ejercicio 18
+
+~~~
+static void Main(string[] args)
+{
+    try
+    {
+        Metodo1();
+    }
+    catch
+    {
+        Console.WriteLine("Método 1 propagó una excepción no tratada");
+    }
+    try
+    {
+        Metodo2();
+    }
+    catch
+    {
+        Console.WriteLine("Método 2 propagó una excepción no tratada");
+    }
+    try
+    {
+        Metodo3();
+    }
+    catch
+    {
+        Console.WriteLine("Método 3 propagó una excepción");
+    }
+}
+static void Metodo1()
+{
+    object obj = "hola";
+    try
+    {
+        int i = (int)obj;
+    }
+    finally
+    {
+        Console.WriteLine("Bloque finally en Metodo1");
+    }
+}
+static void Metodo2()
+{
+    object obj = "hola";
+    try
+    {
+        int i = (int)obj;
+    }
+    catch (OverflowException)
+    {
+        Console.WriteLine("Overflow");
+    }
+}
+static void Metodo3()
+{
+    object obj = "hola";
+    try
+    {
+        int i = (int)obj;
+    }
+    catch (InvalidCastException)
+    {
+        Console.WriteLine("Excepción InvalidCast en Metodo3");
+        throw;
+    }
+}
+~~~
+
+Lineas de salida en orden:
+
+1. ***Bloque finally en Metodo1:*** Dentro del método 1 se produce una excepción al intentar castear un string como si fuera un entero, pero este método no posee un manejador `catch`, por lo que se produce primero el `finally` del método y despues propaga hacia el método que lo llamó (en este caso el `Main`);
+1. ***Método 1 propagó una excepción no tratada:*** Esta es la propagación del error explicado en el punto anterior siendo manejada por el `catch` correspondiente en el `Main`.
+1. ***Método 2 propagó una excepción no tratada:*** EN este caso, el método 2 realiza la misma acción desencadenante de una excepción que realizó el método 1 y posee un manejador de excepciones, pero este manejador esta destinado a tartar con excepciones tipo *OverflowException*, y la excepción que arroja el método 2 es de tipo *InvalidCastException***. Por lo que la excepción es manejada en el `catch` correspondiente en el `Main`.
+1. ***Excepción InvalidCast en Metodo3:*** A diferencia con el anterior, este método si posee un catch especializado en la excepción *InvalidCastException***, por lo que maneja su propio evento.
+1. ***Método 3 propagó una excepción:*** Dentro del manejador de excepciones del método 3, se haya una propagación (`throw`) que lo envía a ser manejado por el método que lo llamó. En este caso, se ve en el `catch` correspondiente del método `Main`.
+
+
+
