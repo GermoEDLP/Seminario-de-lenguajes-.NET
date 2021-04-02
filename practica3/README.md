@@ -508,15 +508,14 @@ static void Main(string[] args)
     int[] enteros = { 5, 3, 9, 7 };
     Queue codigo = setearQueue(enteros);
     Console.WriteLine("Ingrese el texto a cifrar: ");
-    // Al solicitar el texto, lo convierto en un array de caracteres.
     string texto = Console.ReadLine();
-    // Codifico el texto y lo almaceno en la variable
     codigo = setearQueue(enteros);
+    // Codifico el texto y lo almaceno en la variable
     string texto_codificado = codificar(texto, codigo);
     Console.WriteLine("<<Texto codificado>>");
     Console.WriteLine(texto_codificado);
-    // Decodifico el texto y lo almaceno en la variable
     codigo = setearQueue(enteros);
+    // Decodifico el texto y lo almaceno en la variable
     string texto_decodificado = decodificar(texto_codificado, codigo);
     Console.WriteLine("<<Texto decodificado>>");
     Console.WriteLine(texto_decodificado);
@@ -572,7 +571,6 @@ static int getAsciiByChar(string a)
     // Si el caracter es un espacio vacío o una Ñ, les coloco un valor predefinido (por no estar en tabla ascii de ordenada con los otros)
     if (a == " ")
     {
-        // Console.WriteLine("Aqui asciibychar: caracter " + a);
         return 28;
     }
     if (a == "Ñ")
@@ -606,7 +604,6 @@ static char getCharByAscii(int a)
     // Si el caracter es 28 (espacio vacio) o un 15(Ñ), les coloco esos valores.
     if (a == 28)
     {
-        // Console.WriteLine("Aqui charbyAscii: caracter " + a);
         return ' ';
     }
     else if (a == 15)
