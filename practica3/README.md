@@ -80,3 +80,671 @@ static void ImprimirMatriz(double[,] matriz, string formatString)
 }
 ~~~
 Utilizo el metodo .ToString() al momento de imprimir para darle el formato deseado. Tener en cuenta que dentro de la interpolación podemos ejecutar código.
+
+
+## Ejercicio 4
+
+Primero creamos el método Main con el generador de matrices, agregando el manejo de excepciones:
+~~~
+ static void Main(string[] args)
+{
+    double[,] mat = generadorDeMatrices(4,4);
+    try{
+        ImprimirMatriz(mat);
+        ImprimirDiagonal(GetDiagonalPrincipal(mat), "Diagonal principal: ");
+        ImprimirDiagonal(GetDiagonalSecundaria(mat), "Diagonal secundaria: ");
+    }catch (ArgumentException e){
+        Console.WriteLine(e.Message);
+    }
+}
+static double[,] generadorDeMatrices(int a, int b){
+    double[,] mat = new double[a, b];
+    for (int i = 0; i <= ((a*b)-1); i++)
+    {
+        mat[i / b, i % b] = i;
+    }
+    return mat;
+}
+~~~
+Luego definimos los métodos estaticos que evaluarán la matriz generada y retornarán los valores de las diagonales:
+~~~
+static double[] GetDiagonalPrincipal(double[,] matriz)
+{
+    checkSquare(matriz);
+    double[] diag = new double[matriz.GetLength(0)];
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        diag[i] = matriz[i,i];
+    }
+    return diag;
+}
+static double[] GetDiagonalSecundaria(double[,] matriz)
+{
+    checkSquare(matriz);
+    int dimension = matriz.GetLength(0) - 1;
+    double[] diag = new double[dimension];
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        diag[i] = matriz[i, dimension-i];
+    }
+    return diag;
+}
+~~~
+Se aprecia una similitud grande entre ambas funciones, por lo que se podría resumir en una unica fúnción enviandole un parametro adicional:
+~~~
+static double[] GetDiagonal(double[,] matriz, bool principal)
+{
+    checkSquare(matriz);
+    int dimension = matriz.GetLength(0) - 1;
+    double[] diag = new double[dimension];
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        diag[i] = matriz[i, principal ? i : dimension-i];
+    }
+    return diag;
+}
+~~~
+También definimos la función que nos permite saber si una matriz es cuadrada, y en el caso de que no la sea, retornar una excepción a ser manejada en el Main:
+~~~
+static void checkSquare(double[,] matriz){
+    if(matriz.GetLength(0)!=matriz.GetLength(1)){
+        throw new ArgumentException("La matriz no es cuadrada");
+    }
+    return;
+}
+~~~
+Por último, los métodos *helpers* que nos permiten visualizar los valores:
+~~~
+ static void ImprimirMatriz(double[,] matriz)
+{
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        for (int j = 0; j < matriz.GetLength(1); j++)
+        {
+            Console.Write($"{matriz[i, j],5}");
+        }
+        Console.WriteLine();
+    }
+}
+  static void ImprimirDiagonal(double[] diag, string texto)
+{
+    Console.WriteLine();
+    Console.WriteLine(texto);
+    for (int i = 0; i < diag.Length; i++)
+    {
+            Console.Write($"{diag[i],5}");
+    }
+    Console.WriteLine();
+}
+~~~
+
+# Ejercicio 5
+
+Primero creamos el método Main con el generador de matrices y el manejo e impreción de las matrices:
+~~~
+static void Main(string[] args)
+{
+    double[,] mat = generadorDeMatrices(4,4);
+    Console.WriteLine("Matriz original: ");
+    ImprimirMatriz(mat);
+    Console.WriteLine();
+    Console.WriteLine("Array de arrays: ");
+    ImprimirArrayDeArrays(GetArregloDeArreglo(mat));
+}
+static double[,] generadorDeMatrices(int a, int b){
+    double[,] mat = new double[a, b];
+    for (int i = 0; i <= ((a*b)-1); i++)
+    {
+        mat[i / b, i % b] = i;
+    }
+    return mat;
+}
+~~~
+Luego implementamos el método que nos permitirá pasar de un arrgelo de 2 dimensiones a un arreglo de 2 arreglos:
+~~~
+static double[][] GetArregloDeArreglo(double [,] matriz){
+    double[][] newMat = new double[matriz.GetLength(1)][];
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        newMat[i] = new double[matriz.GetLength(0)];
+        for (int j = 0; j < matriz.GetLength(1); j++)
+        {
+            newMat[i][j] = matriz[i,j];
+        }
+    }
+    return newMat;
+}
+~~~
+No es muy diferente al hecho de tener que imprimir le arreglo de dos dimensiones. La particularidad mas grande es que lo inicializamos solo sabiendo la cantidad de elementos que tendrá como filas (`matriz.GetLength(1)`), pero los demas arreglos deberán ser creados para, ser inicializados, dentro del ciclo que recorre los primeros arreglos.
+
+Por último, los métodos *helpers* que nos permiten visualizar los valores:
+~~~
+ static void ImprimirMatriz(double[,] matriz)
+{
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        for (int j = 0; j < matriz.GetLength(1); j++)
+        {
+            Console.Write($"{matriz[i, j],5}");
+        }
+        Console.WriteLine();
+    }
+}
+static void ImprimirArrayDeArrays(double[][] matriz)
+{
+    for (int i = 0; i < matriz.Length; i++)
+    {
+        for (int j = 0; j < matriz[i].Length; j++)
+        {
+            Console.Write($"{matriz[i][j],5}");
+        }
+        Console.WriteLine();
+    }
+}
+~~~
+Prestarle mucha a tención a como se definen los parametros de los loops `for`, ya que se manejan distinto los bidimensionales que los arreglos de arreglos.
+
+## EJercicio 6
+
+Primero generamos el método Main con sus impresiones:
+~~~
+static void Main(string[] args)
+{
+    try
+    {
+        double[,] mat1 = generadorDeMatrices(4, 3, 1);
+        double[,] mat2 = generadorDeMatrices(4, 4, 2);
+        Console.WriteLine("Matriz original A: ");
+        ImprimirMatriz(mat1);
+        Console.WriteLine("Matriz original B: ");
+        ImprimirMatriz(mat2);
+        Console.WriteLine();
+        Console.WriteLine("Matriz suma: ");
+        double[,] suma = Suma(mat1, mat2);
+        if(suma!=null){
+            ImprimirMatriz(suma);
+            Console.WriteLine();
+        }else{
+            Console.WriteLine("Matrices con tamaños diferentes");
+            Console.WriteLine();
+        
+        Console.WriteLine("Matriz resta: ");
+        double[,] resta = Resta(mat1, mat2);
+        if(resta!=null){
+            ImprimirMatriz(Resta(mat1, mat2));
+            Console.WriteLine();
+        }else{
+            Console.WriteLine("Matrices con tamaños diferentes");
+            Console.WriteLine();
+        
+        Console.WriteLine("Matriz multiplicación: ");
+        ImprimirMatriz(Multiplicacion(mat1, mat2));
+        Console.WriteLine();
+        
+    }
+    catch (ArgumentException e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
+~~~
+
+Luego definimos los *helpers* que nos permitirán generar las matrices, imprimirlas, chequear tamaños y correlaciones:
+~~~
+static void ImprimirMatriz(double[,] matriz)
+{
+    for (int i = 0; i < matriz.GetLength(0); i++)
+    {
+        for (int j = 0; j < matriz.GetLength(1); j++)
+        {
+            Console.Write($"{matriz[i, j],5}");
+        }
+        Console.WriteLine();
+    }
+}
+static double[,] generadorDeMatrices(int a, int b, int modf)
+{
+    double[,] mat = new double[a, b];
+    for (int i = 0; i <= ((a * b) - 1); i++)
+    {
+        mat[i / b, i % b] = i*modf;
+    }
+    return mat;
+}
+static void checkearTamañosConException(double[,] mat1, double[,] mat2)
+{
+    if (mat1.GetLength(1) != mat2.GetLength(0))
+    {
+        throw new ArgumentException("Las filas de B deben ser iguales a las columnas A.");
+    }
+}
+static bool checkearTamaños(double[,] mat1, double[,] mat2)
+{
+    return (mat1.GetLength(0) != mat2.GetLength(0) || mat1.GetLength(1) != mat2GetLength(1)) ? false : true;
+}
+~~~
+*En este caso, en el `generadorDeMatrices()`, se agregó un valor de modificación para obtener matrices diferentes.*
+
+Y, por último, definimos las funciones solicitadas por el ejercicio:
+~~~
+static double[,] Suma(double[,] A, double[,] B)
+{
+    if (checkearTamaños(A, B))
+    {
+        double[,] suma = new double[A.GetLength(0), A.GetLength(1)];
+        for (int i = 0; i < A.GetLength(0); i++)
+        {
+            for (int j = 0; j < A.GetLength(1); j++)
+            {
+                suma[i, j] = A[i, j] + B[i, j];
+            }
+        }
+        return suma;
+    }
+    return null;
+}
+static double[,] Resta(double[,] A, double[,] B)
+{
+    if (checkearTamaños(A, B))
+    {
+        double[,] resta = new double[A.GetLength(0), A.GetLength(1)];
+        for (int i = 0; i < A.GetLength(0); i++)
+        {
+            for (int j = 0; j < A.GetLength(1); j++)
+            {
+                resta[i, j] = A[i, j] - B[i, j];
+            }
+        }
+        return resta;
+    }
+    return null;
+}
+static double[,] Multiplicacion(double[,] A, double[,] B)
+{
+    checkearTamañosConException(A,B);
+    double[,] mult = new double[A.GetLength(0), A.GetLength(1)];
+    for (int i = 0; i < A.GetLength(0); i++)
+    {
+        for (int j = 0; j < A.GetLength(1); j++)
+        {
+            mult[i, j] = A[i, j] * B[i, j];
+        }
+    }
+    return mult;
+}
+~~~
+Nuevamente, como e el ejercicio anterior, las funciones Suma() y Resta() se parecen bastante, por lo que se puede llegar a realizar una sola función con un parametro adicional que maneje ambos casos:
+~~~
+static double[,] Calculo(double[,] A, double[,] B, bool suma)
+{
+    if (checkearTamaños(A, B))
+    {
+        double[,] operacion = new double[A.GetLength(0), A.GetLength(1)];
+        for (int i = 0; i < A.GetLength(0); i++)
+        {
+            for (int j = 0; j < A.GetLength(1); j++)
+            {
+                operacion[i, j] = suma ? A[i, j] + B[i, j] : A[i, j] - B[i, j];
+            }
+        }
+        return operacion;
+    }
+    return null;
+}
+~~~
+
+***Aclaración importante:* El método de Multiplicación no me dejó muy convencido. Creo que esta mal planteado, así que puede sufrir modificaciones más adelante si en alguna consulta lo pregunto. Tambien pueden avisarme si entendieron que hay que hacerlo de otra manera.**
+
+
+## Ejercicio 7
+
+De la siguiente manera podemos ver los diferentes tipos de las variables:
+~~~
+static void Main(string[] args)
+{
+    int i = 10;
+    var x = i * 1.0;
+    var y = 1f;
+    var z = i * y;
+    Console.WriteLine(x.GetType());
+    Console.WriteLine(y.GetType());
+    Console.WriteLine(z.GetType());
+}
+~~~
+* **x:** Resulta un `double` por que las operaciones que involucren doubles convertirán de manera implicita los `integer` y retornarán un `double`.
+* **y:** Es definida con el operador `f`, por lo que se crea e inicializa como un `float` (Aclaración: En C#, al `float` lo llaman *System.Single* por ser un decimal de simple precisión, es decir, 32 bits).
+* **z:** Similar al caso de **x**, un `integer` en operación con un `float`, retorna un `float` (El tipo con mayor capacidad).
+
+
+## Ejercicio 8
+
+~~~
+static void Main(string[] args)
+{
+    var a = 3L;
+    dynamic b = 32;
+    object obj = 3;
+    // a = a * 2.0;        // => a fue definido como un entero (64bits), no puede contener un double (resultado de operar un integer con un double literal)
+    b = b * 2.0;
+    b = "hola";
+    obj = b;
+    b = b + 11;
+    // obj = obj + 11;        // => No se puede sumar directamente un integer con un objeto. Incluso si el objeto contiene un integer.
+    var c = new { Nombre = "Juan" };
+    var d = new { Nombre = "María" };
+    var e = new { Nombre = "Maria", Edad = 20 };
+    var f = new { Edad = 20, Nombre = "Maria" };
+    // f.Edad = 22;            // => La La inferencia de tipos permite instanciar objetos de tipos anónimos con un conjunto de propiedades de SOLO LECTURA.
+    d = c;
+    // e = d;                  // => No se pueden igualar objetos que no comparten estructura.
+    // f = e;                  // => No se pueden igualar objetos que no comparten estructura, incluso si esta esta solo desordenada (para el comilador son dos objetos de estructura distinta)
+}
+~~~
+
+## Ejercicio 9
+
+~~~
+static void Main(string[] args)
+{
+    object obj = new int[10];
+    dynamic dyn = 13;
+    Console.WriteLine(obj.Length);
+    Console.WriteLine(dyn.Length);
+}
+~~~
+
+* **Linea 3:** Error de comilación: EL tipo `object` no tiene el método `Lenght` definido, ni se puede definir un método `Lenght` para un tipo `object`.
+* **Linea 4:** Error de ejecución: El tipo `int` no tiene el método `Lenght` definido. Esto dispara un error en la ejecución y no en la compilación, porque la variable fue definida como `dynamic`, diciendole al compilador que omita la verificación de tipos, por lo que el error sucede en la ejecución.
+
+
+## Ejercicio 10
+
+~~~
+static void Main(string[] args)
+{
+    double a = 1.163852;
+    
+    Console.WriteLine("Numero a: {0:0.0}", a);      // => Numero a: 1,2
+    Console.WriteLine("Numero a: {0:0.00}", a);     // => Numero a: 1,16
+    Console.WriteLine("Numero a: {0:0.000}", a);    // => Numero a: 1,164
+    Console.WriteLine("Numero a: {0:0.0000}", a);   // => Numero a: 1,1639
+    Console.WriteLine("Numero a: {0:0.00000}", a);  // => Numero a: 1,16385
+
+    Console.WriteLine($"Numero a: {a:0.0}");        // => Numero a: 1,2
+    Console.WriteLine($"Numero a: {a:0.00}");       // => Numero a: 1,16
+    Console.WriteLine($"Numero a: {a:0.000}");      // => Numero a: 1,164
+    Console.WriteLine($"Numero a: {a:0.0000}");     // => Numero a: 1,1639
+    Console.WriteLine($"Numero a: {a:0.00000}");    // => Numero a: 1,16385
+}
+~~~
+Como se puede ver en las impresiones de cada línea (Colocadas a un lado), las operaciones de formato no truncan sino que redondean hacia abajo o hacia arriba. En el caso de que los numeros siguientes al final del formato sean menores que 5, entonces redondea hacia abajo y si son mayores o iguales, entonces redondea hacia arriba.
+
+
+## EJercicio 11
+
+~~~
+static void Main(string[] args)
+{
+    ArrayList a = new ArrayList() { 1, 2, 3, 4 };
+    a.Remove(5);
+    // a.RemoveAt(5);
+    for (int i = 0; i < a.Count; i++)
+    {
+        Console.WriteLine(a[i]);
+    }
+}
+~~~
+El error en ejecución ocurre en la linea comentada (`a.RemoveAt(5)`), ya que el compilador no puede controlar las existencia de los indices, al momento de la compilación, de un *ArrayList* por ser dinamico y, cuando ejecuta, se encuentra con que el inidce no existe. Recordar que la función `RemoveAt(index)` remueve el elemento de un *ArrayList* en la posición **index**.
+La línea `a.Remove(5)` no crea excepciones porque ese método busca y elimina la primer aparación, del elemento definido como parametro, y si no la encuentra, no realiza ninguna acción.
+
+
+## Ejercicio 12
+
+EL ejercicio esta explicado paso por paso en las lineas de código:
+~~~
+static void Main(string[] args)
+{
+    // Seteo el Queue
+    int[] enteros = { 5, 3, 9, 7 };
+    Queue codigo = setearQueue(enteros);
+    Console.WriteLine("Ingrese el texto a cifrar: ");
+    // Al solicitar el texto, lo convierto en un array de caracteres.
+    string texto = Console.ReadLine();
+    // Codifico el texto y lo almaceno en la variable
+    codigo = setearQueue(enteros);
+    string texto_codificado = codificar(texto, codigo);
+    Console.WriteLine("<<Texto codificado>>");
+    Console.WriteLine(texto_codificado);
+    // Decodifico el texto y lo almaceno en la variable
+    codigo = setearQueue(enteros);
+    string texto_decodificado = decodificar(texto_codificado, codigo);
+    Console.WriteLine("<<Texto decodificado>>");
+    Console.WriteLine(texto_decodificado);
+}
+static string decodificar(string texto, Queue q)
+{
+    // Convierto el texto recibido en un array de caracteres
+    char[] textoADecodificar = texto.ToCharArray();
+    // Creo una variable para alamacenar el texto decodificado
+    char[] decodificado = new char[texto.Length];
+    // Inicio un ciclo for en base a la cantidad de caracteres del texto.
+    for (int i = 0; i < textoADecodificar.Length; i++)
+    {
+        // Tomo el primer valor de la queue
+        int codigo = (int)q.Dequeue();
+        // Obtengo el entero de tabla ascii que corresponde al caracter
+        int ascii = getAsciiByChar(texto[i].ToString());
+        // Le resto el codigo
+        int ascii_con_codigo = ascii - codigo;
+        // Averiguo el caracter que corresponde al codigo ascii ya restado y lo agrego al array de decodificacion
+        decodificado[i] = getCharByAscii(ascii_con_codigo);
+        // Recoloco el codigo al final de la cola
+        q.Enqueue(codigo);
+    }
+    Console.WriteLine();
+    // Retorno un string en base al array de caracteres creado en el ciclo for
+    return new string(decodificado);
+}
+static string codificar(string texto, Queue q)
+{
+    char[] textoACodificar = texto.ToCharArray();
+    char[] codificado = new char[texto.Length];
+    for (int i = 0; i < texto.Length; i++)
+    {
+        // Tomo el primer valor de la queue
+        int codigo = (int)q.Dequeue();
+        // Obtengo el entero de tabla ascii que corresponde al caracter
+        int ascii = getAsciiByChar(texto[i].ToString());
+        // Le sumo el codigo
+        int ascii_con_codigo = ascii + codigo;
+        // Averiguo el caracter que corresponde al codigo ascii ya sumado y lo agrego al array de codificacion
+        codificado[i] = getCharByAscii(ascii_con_codigo);
+        // Recoloco el codigo al final de la cola  
+        q.Enqueue(codigo);
+    }
+    Console.WriteLine();
+    return new string(codificado);
+}
+static int getAsciiByChar(string a)
+{
+    // Pongo todos los caracteres en mayusculas
+    a = a.ToUpper();
+    // Si el caracter es un espacio vacío o una Ñ, les coloco un valor predefinido (por no estar en tabla ascii de ordenada con los otros)
+    if (a == " ")
+    {
+        // Console.WriteLine("Aqui asciibychar: caracter " + a);
+        return 28;
+    }
+    if (a == "Ñ")
+    {
+        return 15;
+    }
+    // Decodifico el caracter y obtengo su codigo ascii
+    int ascii = Encoding.ASCII.GetBytes(a)[0];
+    // Evaluo el codigo ascii original y lo llevo a la tabla que dieron en el ejercicio
+    if (ascii >= 65 && ascii < 79)
+    {
+        return ascii - 64;
+    }
+    else if (ascii >= 79 && ascii <= 90)
+    {
+        return ascii - 63;
+    }
+    return 0;
+}
+static char getCharByAscii(int a)
+{
+    // Si el ascii que recivo esta por encima de 28 o por debajo de cero, lo modifico para que entre en la tabla de que defini
+    if (a > 28)
+    {
+        a = -28 + a;
+    }
+    else if (a <= 0)
+    {
+        a = 28 + a;
+    }
+    // Si el caracter es 28 (espacio vacio) o un 15(Ñ), les coloco esos valores.
+    if (a == 28)
+    {
+        // Console.WriteLine("Aqui charbyAscii: caracter " + a);
+        return ' ';
+    }
+    else if (a == 15)
+    {
+        return 'Ñ';
+    }
+    // Al retornar un entero casteandolo como char, retorno ese caracter, pero primero debo llevarlo a tabla ascii original.
+    else if (a >= 1 && a < 15)
+    {
+        return (char)(a + 64);
+    }
+    else if (a >= 15 && a <= 27)
+    {
+        return (char)(a + 63);
+    }
+    return ' ';
+}
+
+static Queue setearQueue(int[] enteros)
+{
+    //Defino el queue
+    Queue codigo = new Queue();
+    // Lo inicilizo en base al array de enteros que recibe por parametro
+    for (int i = 0; i < enteros.Length; i++)
+    {
+        codigo.Enqueue(enteros[i]);
+    }
+    return codigo;
+}
+~~~
+
+## Ejercicio 13
+
+~~~
+ static void Main(string[] args)
+{
+    // Al solicitar el texto, lo convierto en un array de caracteres.
+    string[] texto = { "(-5)*(5+3+(56*2))-(4)", "(-5)", "(-5)(", "(-5))(" };
+    for (int i = 0; i < texto.Length; i++)
+    {
+        try
+        {
+            char[] caracteres = texto[i].ToCharArray();
+            Console.WriteLine("Expresión: {0}", texto[i]);
+            analizar(caracteres);
+            Console.WriteLine("Expresión valida");
+            Console.WriteLine();
+        }catch (Exception e){
+            Console.WriteLine(e.Message);
+            Console.WriteLine();
+        }
+    };
+}
+static void analizar(char[] carracteres)
+{
+    // Defino la pila
+    Stack pila = new Stack();
+    // Recorro la expresión caracter a caracter
+    for (int i = 0; i < carracteres.Length; i++)
+    {
+        // Tomo el carcter y analizo el valor ascii del mismo
+        int ascii = Encoding.ASCII.GetBytes(carracteres[i].ToString())[0];
+        // Si es 40 = ( y si es 41 = )
+        if (ascii == 40)
+        {
+            // Si hay un parentesis de apertura guardo en la pila
+            pila.Push(ascii);
+        }
+        else if (ascii == 41)
+        {
+            // Si hay un parentesis de cierre primero pregunto si la pila no esta vacia, lo que daría un error.
+            if (pila.Count == 0)
+            {
+                throw new Exception("[Expresión invalida] Falta de coherencia");
+            }
+            // Si no esta vacia, saco un elemento de la pila
+            else
+            {
+                pila.Pop();
+            }
+        }
+    }
+    // Si al finalzar toda la expresión, me quedarón parentesis abiertos, entonces salgo con una expecion
+    if (pila.Count != 0)
+    {
+        throw new Exception("[Expresión invalida] Signos adicionales");
+    }
+}
+~~~
+
+## Ejercicio 14
+
+~~~
+static void Main(string[] args)
+{
+    Console.WriteLine("Ingrese un numero en base 10: ");
+    int numero = Int32.Parse(Console.ReadLine());
+    Console.WriteLine();
+    Console.WriteLine("El binario de {0} es: {1}", numero, base10abase2(numero));
+}
+static string base10abase2(int num){
+    // Se cre la pila
+    Stack pila = new Stack();
+    // Mientras que el numero sea mayor que 1, voy a seguir operando
+    while(num>1){
+        // Guardo el modulo de la division y divido de manera entera el numero
+        pila.Push(num%2);
+        num=num/2;
+    }
+    // Cunado termino guardo el restante en la pila. Aqui se encunetra el resto de la ultima operacion
+    pila.Push(num);
+    StringBuilder st = new StringBuilder();
+    while(pila.Count!=0){
+        // Por medio de un stringBuilder creo una cadena desapilando la pila.
+        st.Append(pila.Pop());
+    }
+    return st.ToString();
+}
+~~~
+
+## Ejercicio 15
+
+~~~
+static void Main()
+{
+    int x = 0;
+    try
+    {
+        Console.WriteLine(1.0 / x);
+        // Console.WriteLine(1 / x);
+        Console.WriteLine("todo OK");
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
+~~~
+
+Al intentar dividir un entero por cero, se produce una Excepción del tipo DivideByZeroException. Para evitar la excepción, debemos asegurarnos de que el denominador de una operación de división con valores enteros sea distinto de cero. La división de un valor de punto flotante (single o double) por cero no produce una excepción; da como resultado un valor infinito positivo, infinito negativo o no es un número (NaN), de acuerdo con las reglas de la aritmética IEEE 754.
+En este caso, la primera linea da como resultado un infinito positivo y la segunda arroja una excepcion de tipo DivideByZeroException.
