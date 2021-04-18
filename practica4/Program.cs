@@ -428,6 +428,11 @@ namespace practica4
             internal Elemento Der { get => der; set => der = value; }
         }
         */
+
+        /*
+        EJERCICIO 08
+        ============
+        
         static void Main(string[] args)
         {
             Matriz A = new Matriz(2, 3);
@@ -640,6 +645,110 @@ namespace practica4
                 if (matriz.GetLength(1) != m.matriz.GetLength(0))
                 {
                     throw new Exception("Las filas de B deben ser iguales a las columnas A.");
+                }
+            }
+        }
+        */
+        /*
+        EJERCICIO 11
+        ============
+        
+        static void Main()
+        {
+            object o = 5;
+            Procesar(o, o);
+            Procesar((dynamic)o, o);
+            Procesar((dynamic)o, (dynamic)o);
+            Procesar(o, (dynamic)o);
+            Procesar(5, 5);
+        }
+        static void Procesar(int i, object o)
+        {
+            Console.WriteLine($"entero: {i} objeto:{o}");
+        }
+        static void Procesar(dynamic d1, dynamic d2)
+        {
+            Console.WriteLine($"dynamic d1: {d1} dynamic d2:{d2}");
+        }
+        */
+
+        /*
+        EJERCICIO 13
+        ============
+        
+         static void Main(string[] args)
+        {
+            string st = null;
+            string st1 = null;
+            string st2 = null;
+            string st3 = null;
+            string st4 = null;
+
+            
+            st = st1 ?? (st = st2 ?? st3);
+            st4 = null ?? "Valor por defecto";
+        }
+
+        */
+        static void Main(string[] args)
+        {
+            Cuenta cuenta = new Cuenta();
+            cuenta.Imprimir();
+            cuenta = new Cuenta(30222111);
+            cuenta.Imprimir();
+            cuenta = new Cuenta("José Perez");
+            cuenta.Imprimir();
+            cuenta = new Cuenta("Maria Diaz", 20287544);
+            cuenta.Imprimir();
+            cuenta.Depositar(200);
+            cuenta.Imprimir();
+            cuenta.Extraer(150);
+            cuenta.Imprimir();
+            cuenta.Extraer(1500);
+        }
+
+        class Cuenta
+        {
+            private string _nombre;
+            private int? _dni;
+            private double _monto;
+            public Cuenta()
+            {
+                _nombre = null;
+                _dni = null;
+            }
+            public Cuenta(string nombre) : this()
+            {
+                _nombre = nombre;
+            }
+            public Cuenta(int dni) : this()
+            {
+                _dni = dni;
+            }
+            public Cuenta(string nombre, int dni)
+            {
+                _nombre = nombre;
+                _dni = dni;
+            }
+            public void Imprimir()
+            {
+                string texto = "No especificado";
+                string dni = (_dni ?? 0).ToString();
+                Console.WriteLine("Nombre: {0}, DNI: {1}, Monto: {2}", _nombre?? texto, dni!="0"?_dni:texto, _monto);
+            }
+            public void Depositar(double monto)
+            {
+                _monto += monto;
+            }
+            public void Extraer(double monto)
+            {
+                if (_monto > monto)
+                {
+                    _monto -= monto;
+                }
+                else
+                {
+                    Console.WriteLine("Operación cancelada, monto insuficiente");
                 }
             }
         }

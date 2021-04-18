@@ -631,3 +631,106 @@ class Matriz
 }    
 ~~~
 
+## Ejercicio 09
+
+* __a)__ En este caso, nos encontramos con una excepción en tiempo de ejecución de tipo *NullReferenceException* que responde a no haber inicializado la variable `a`, solo se le indica al compilador el tipado de la misma anteponiendo el nombre de la clase (`Auto`). El error es en tiempo de ejecución porque el compilador no tiene forma de saber si la variable fue inicializada en otro método, o en otra clase, por lo que llega a ejecutar el código y se encuentra con que la variable no posee una referencia guardada, es decir, alberga el valor `null`, lo que desata la *NullReferenceException*. Para eliminar ese problema, solo debemos inicializar la variable por medio del `new` utilizando el constructor por defecto. Si se realiza de esa manera, la propiedad `a.Velocidad` quedará definida en 0 al instanciar el objeto.
+~~~
+static Auto a = new Auto();
+~~~
+
+* __b)__ En el segundo caso, nos encontramos con un error en tiempo de compilación por la misma cuestión, es decir, que la variable `a` no esta inicializada. En este caso, el error se dispara en tiempo de compilación y no de ejecución porque la definición de la variable `a` (`Auto a;`) se haya en el mismo *scope* que la utilkzación de la misma, por lo que el compilador puede saber que la variable `a` no esta inicializada. La solución es la misma que en el ejercicio anterior:
+~~~
+Auto a = new Auto();
+~~~
+
+## Ejercicio 10
+
+En este caso particular, la sobrecarga del método `Metodo()` es correctamente aplicada en los dos primeros ejemplos ya que no poseen los mismos parametros, pero la tercera definición del método es incorrecta por que no se diferencia en los paramtros con la segunda. Al realizar una sobrecarga de métodos, debemos asegurarnos que los parametros sean diferentes en tipo o posición, y no basta con que el retorno de los métodos sea diferente.
+
+
+## Ejercicio 11
+
+Para analizar este ejercicio, debemos recordar, que la resolución de la sobrecarga (es decir, que método se ejecuta de los que hayamos definido con el mismo nombre dependiendo de los parametros que le pasemos) se realiza en tiempo de compilación, es decir, que al compilar el programa, se identifica que tipado poseen los parametros y se decide que método a ejecutar, luego solo se ejecuta el código completo. 
+Tambien debemos recordar que existe un caso particular que no obedece a lo descripto anteriormente y es cuando el argumento que se envía a procesar es de tipo *dynamic*. En este caso, la resolución de la sobrecarga se produce en tiempo de ejecución, brindandole al método, no un tipo *dynamic*, sino lo que el compilador considere que el dato representa. En este caso, al castear el objeto `o` como *dynamic*, sabiendo que contiene un objeto con un entero, al método `Procesar()` le llega un entero. 
+
+* __a)__ Aqui, el compilador entiende que el primer parametro no es un entero, entonces ejecuta el segundo método que puede recibir parametros de cualquier tipo.
+~~~
+Procesar(o, o); // dynamic d1: 5 dynamic d2: 5
+~~~
+* __b)__ Aqui, el casteo como *dynamic* del primer parametro lo convierte (en ejecución) en un entero, entonces se ejecuta el primer método.
+~~~
+Procesar((dynamic)o, o); //entero: 5 objeto:5 
+~~~
+* __c)__ Aqui nuevamente, el casteo como *dynamic* del primer parametro lo convierte (en ejecución) en un entero y aunque el segundo parametro tambien es pasado como un entero, el método `Procesar()` lo recibe como un objeto, ya que esta esperando un *object* como segundo parametro.
+~~~
+Procesar((dynamic)o, (dynamic)o); //entero: 5 objeto:5 
+~~~
+* __d)__ En este caso, el segundo parametro es pasado como entero, pero el método espera un objeto, por lo que lo convierte en tipo *object*. EL primer parametro es pasado sin castear, por lo que se recibe como tipo *object*, definiendo al compilador por ejecutar el segundo método.
+~~~
+Procesar(o, (dynamic)o); // dynamic d1: 5 dynamic d2: 5
+~~~
+* __e)__ Por último, este caso es el más simple. Al pasar como parametro dos enteros literales, el primero es tomado como *int* y el segundo como *object* por el primer método.
+~~~
+Procesar(5, 5); //entero: 5 objeto:5
+~~~
+
+## Ejercicio 12
+El siguiente código genera la respuesta que solicita el enunciado:
+~~~
+class Cuenta
+{
+    private string _nombre;
+    private int? _dni;
+    private double _monto;
+    public Cuenta()
+    {
+        _nombre = null;
+        _dni = null;
+    }
+    public Cuenta(string nombre) : this()
+    {
+        _nombre = nombre;
+    }
+    public Cuenta(int dni) : this()
+    {
+        _dni = dni;
+    }
+    public Cuenta(string nombre, int dni)
+    {
+        _nombre = nombre;
+        _dni = dni;
+    }
+    public void Imprimir()
+    {
+        string texto = "No especificado";
+        string dni = (_dni ?? 0).ToString();
+        Console.WriteLine("Nombre: {0}, DNI: {1}, Monto: {2}", _nombre?? texto, dni!="0"?_dni:texto, _monto);
+    }
+    public void Depositar(double monto)
+    {
+        _monto += monto;
+    }
+    public void Extraer(double monto)
+    {
+        if (_monto > monto)
+        {
+            _monto -= monto;
+        }
+        else
+        {
+            Console.WriteLine("Operación cancelada, monto insuficiente");
+        }
+    }
+}
+~~~
+
+## Ejercicio 13
+
+Las siguientes lineas de código reemplazan al código dado en el ejercicio:
+~~~
+static void Main(string[] args)
+{
+    st = st1 ?? (st = st2 ?? st3);
+    st4 = null ?? "Valor por defecto";
+}
+~~~
