@@ -124,15 +124,207 @@ Y los errores surgen a partir de que las clases poseen dos tipos de accesos dife
 
 ## Ejercicio 06
 
-* __6.1:__ 
-* __6.2:__ 
-* __6.3:__ 
-* __6.4:__ 
-* __6.5:__ 
-* __6.6:__ 
-* __6.7:__ 
-* __6.8:__ 
-* __6.9:__ 
-* __6.10:__ 
-* __6.11:__ 
-* __6.12:__ 
+* __6.1:__ No se puede definir una clase como *override* para sobreescribirla, si la clase a sobreescribir en el padre no es **virtual**, **abstract** u **override**
+* __6.2:__ Si, al menos un método es abstracto, la clase debe ser abstracta. No es el caso de la clase `A`, que posee el método `M1()` de tipo abstracto y la clase no lo es.
+* __6.3:__ Las clases abstractas no tienen declaración, sino que se declaran en las clases que se extienden de la clase donde son nombradas.
+* __6.4:__ Para declarar un método como *override*, la clase debe derivar de otra que posea un método de tipo **virtual**, **abstract** u **override**. Este no es el caso, ya que la clase `A` no deriva de ninguna otra.
+* __6.5:__ Un método sobreescrito (*override*) no puede cambiar el tipo de acceso que posee el método al que esta sobreescribiendo. El método `M1()` original es publico, por lo que el derivado no puede ser protegido.
+* __6.6:__ Los miembros estáticos no pueden ser **virtual**, **abstract** u **override**.
+* __6.7:__ Los métodos **virtual** o **abstract** no pueden ser privados, ya que su función es la de ser manejados de forma externa a la clase que los crea.
+* __6.8:__ Al definir un constructor en `A`, el compilador ya no define el constructor vacio por defecto, por lo que debemos definirlo si lo queremos utilizar. En este caso, al `B` derivar de `A`, necesitamos definir el constructor vacio en `A` o pasarle, a traves del constructor de `B`, el parametro `i`
+* __6.9:__ La variable `_id` es inaccesible desde la clase `B`, porque esta definida en `A` y es privada.
+* __6.10:__ El método `get` no puede tener más acceso que la Propiedad que opera. `Prop` tiene acceso privado y el método `get`, es publico.
+* __6.11:__ La propiedad `Prop` es creada de manera abstracta en la clase `A`, por lo que la clase `B` (que deriva de `A`) debe implementarla a la fuerza y completa. En B solo se implementa el método `get` de la misma, lo que causa un error.
+* __6.12:__ Para declarar una Propiedad como *override*, la clase debe derivar de otra que posea un método de tipo **virtual**, **abstract** u **override** con el mismo nombre. La propiedad `Prop` no lo hace.
+
+## Ejercicio 07
+Para hacer más eficiente el código dado utilizando polimorfismo, podemos implementar varios caminos, aqui se usarán 2:
+* **Crear una clase Principal:** Usando una clase abstracta Principal, se define una un método abstarcto de impresión y se coloca a todas las clases adicionales, como derivadas de esta clase princiapal. Además, se cambia el método de las demas clases para que se corresponda con el método abstracto de la clase padre Principal. Por útlimo, se modifica el foreach del método estatico Imprimidor para adecuarlo a la nueva configuración.
+~~~
+abstract class Principal
+{
+    public abstract void Imprimir();
+}
+class A: Principal
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia A");
+}
+class B: Principal
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia B");
+}
+class C: Principal
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia C");
+}
+class D: Principal
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia D");
+}
+static class Imprimidor
+{
+    public static void Imprimir(params object[] vector)
+    {
+        foreach (Principal o in vector)
+        {
+           o.Imprimir();
+        }
+    }
+}
+~~~ 
+* **Usar la clase A como principal:** La otra forma es utilizar la clase `A` como padre y derivar las demas de ella. Tener en cuenta que el método `Imprimir()` de esta clase debe ser *virtual* para poder sobreescribirse en las demas clases.
+~~~
+class A
+{
+    public virtual void Imprimir() => Console.WriteLine("Soy una instancia A");
+}
+class B: A
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia B");
+}
+class C: A
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia C");
+}
+class D: A
+{
+    public override void Imprimir() => Console.WriteLine("Soy una instancia D");
+}
+static class Imprimidor
+{
+    public static void Imprimir(params object[] vector)
+    {
+        foreach (A o in vector)
+        {
+           o.Imprimir();
+        }
+    }
+}
+~~~
+
+## Ejercicio 08
+
+Primero se definio una clase abstracta llamada EMpleado, que contenga toda la información en común entre los dos tipos de empleados:
+~~~
+abstract class Empleado
+{
+public string Nombre
+{
+    protected set;
+    get;
+}
+public int DNI
+{
+    protected set;
+    get;
+}
+public DateTime FechaIngreso
+{
+    protected set;
+    get;
+}
+public double SalarioBase
+{
+    protected set;
+    get;
+}
+public abstract double Salario
+{
+    get;
+}
+public int Antiguedad
+{
+    get
+    {
+        DateTime hoy = DateTime.Parse("26/4/2020");
+        int ant = hoy.Year - FechaIngreso.Year - 1;
+        if (hoy.Month > FechaIngreso.Month)
+        {
+            ant++;
+        }
+        else if (hoy.Month == FechaIngreso.Month)
+        {
+            if (hoy.Day >= FechaIngreso.Day)
+            {
+                ant++;
+            }
+        }
+        return ant;
+    }
+}
+
+            public abstract void AumentarSalario();
+
+            public Empleado(string nombre, int dni, DateTime fecha, double salarioBase)
+            {
+                Nombre = nombre;
+                DNI = dni;
+                FechaIngreso = fecha;
+                SalarioBase = salarioBase;
+            }
+
+            public override string ToString()
+            {
+                return "Nombre " + Nombre + ", DNI: " + DNI + " Antiguedad: " + Antiguedad + "\nSalario Base: " + SalarioBase;
+            }
+
+        }
+~~~
+En ella definimos tambien, la propiedad Salario y el método AumentarSalario() como abstarctos para forzarlos en las clases derivadas. Además, definimos el constructor que utilizaremos en las clases derivadas.
+
+Luego, definiremos las clases de Administrativo y Vendedor, como clases deriadas de Empleado y que ademas implementan los elementos abstarctos que se definen en la clase padre.
+~~~
+class Administrativo : Empleado
+{
+    public override double Salario
+    {
+        get
+        {
+            return SalarioBase + Premio;
+        }
+    }
+    public double Premio
+    {
+        get;
+        set;
+    }
+    public override void AumentarSalario()
+    {
+        SalarioBase = SalarioBase * (1 + (0.01 * Antiguedad));
+    }
+    public Administrativo(string nombre, int dni, DateTime fecha, double salarioBase) : base(nombre, dni, fecha, salarioBase){}
+    public override string ToString()
+    {
+        return "Administrativo " + base.ToString() + ", Salario: " + Salario + "\n------------";
+    }
+}
+class Vendedor : Empleado
+{
+    public override double Salario
+    {
+        get
+        {
+            return SalarioBase + Comision;
+        }
+    }
+    public double Comision
+    {
+        get;
+        set;
+    }
+    public override void AumentarSalario()
+    {
+        SalarioBase = (Antiguedad < 10) ? SalarioBase * 1.05 : SalarioBase * 1.1;
+    }
+    public Vendedor(string nombre, int dni, DateTime fecha, double salarioBase) : base(nombre, dni, fecha, salarioBase){}
+    public override string ToString()
+    {
+        return "Vendedor " + base.ToString() + ", Salario: " + Salario + "\n------------";
+    }
+}
+~~~
+En estas clases:
+* Utilizamos el constructor de la clase padre al pasarle todos los parametros de ingreso al constructor de las clases hijas.
+* Definimos la Propiedad salario (obligatoria al ser abstracta en el padre), como la suma del salario base y los bonus.
+* Definimos el método AumentarSalario() (obligatorio al ser abstracto en el padre), siguiendo los patrones establecidos.
+* Definimos (sobreescribiendo) el método ToString() de cada clase para que, con la ayuda del método sobreescrito en el padre, podamos visulaizar la información de una manera más ordenada.

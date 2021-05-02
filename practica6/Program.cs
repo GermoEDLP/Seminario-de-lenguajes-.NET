@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace practica6
 {
@@ -90,8 +91,147 @@ namespace practica6
         }
         */
 
+        /*
+        EJERCICIO 08
+        ============
         
+                static void Main(string[] args)
+        {
+            Empleado[] empleados = new Empleado[] {
+                new Administrativo("Ana", 20000000, DateTime.Parse("26/4/2018"), 10000) {Premio=1000},
+                new Vendedor("Diego", 30000000, DateTime.Parse("2/4/2010"), 10000) {Comision=2000},
+                new Vendedor("Luis", 33333333, DateTime.Parse("30/12/2011"), 10000) {Comision=2000}
+            };
+            foreach (Empleado e in empleados)
+            {
+                Console.WriteLine(e);
+                e.AumentarSalario();
+                Console.WriteLine(e);
+            }
+        }
 
-        
+        abstract class Empleado
+        {
+            public string Nombre
+            {
+                protected set;
+                get;
+            }
+            public int DNI
+            {
+                protected set;
+                get;
+            }
+            public DateTime FechaIngreso
+            {
+                protected set;
+                get;
+            }
+            public double SalarioBase
+            {
+                protected set;
+                get;
+            }
+            public abstract double Salario
+            {
+                get;
+            }
+            public int Antiguedad
+            {
+                get
+                {
+                    DateTime hoy = DateTime.Parse("26/4/2020");
+                    int ant = hoy.Year - FechaIngreso.Year - 1;
+                    if (hoy.Month > FechaIngreso.Month)
+                    {
+                        ant++;
+                    }
+                    else if (hoy.Month == FechaIngreso.Month)
+                    {
+                        if (hoy.Day >= FechaIngreso.Day)
+                        {
+                            ant++;
+                        }
+                    }
+                    return ant;
+                }
+            }
+
+            public abstract void AumentarSalario();
+
+            public Empleado(string nombre, int dni, DateTime fecha, double salarioBase)
+            {
+                Nombre = nombre;
+                DNI = dni;
+                FechaIngreso = fecha;
+                SalarioBase = salarioBase;
+            }
+
+            public override string ToString()
+            {
+                return "Nombre " + Nombre + ", DNI: " + DNI + " Antiguedad: " + Antiguedad + "\nSalario Base: " + SalarioBase;
+            }
+
+        }
+
+        class Administrativo : Empleado
+        {
+            public override double Salario
+            {
+                get
+                {
+                    return SalarioBase + Premio;
+                }
+            }
+            public double Premio
+            {
+                get;
+                set;
+            }
+            public override void AumentarSalario()
+            {
+                SalarioBase = SalarioBase * (1 + (0.01 * Antiguedad));
+            }
+            public Administrativo(string nombre, int dni, DateTime fecha, double salarioBase) : base(nombre, dni, fecha, salarioBase)
+            {
+
+            }
+            public override string ToString()
+            {
+                return "Administrativo " + base.ToString() + ", Salario: " + Salario + "\n------------";
+            }
+        }
+
+        class Vendedor : Empleado
+        {
+            public override double Salario
+            {
+                get
+                {
+                    return SalarioBase + Comision;
+                }
+            }
+            public double Comision
+            {
+                get;
+                set;
+            }
+            public override void AumentarSalario()
+            {
+                SalarioBase = (Antiguedad < 10) ? SalarioBase * 1.05 : SalarioBase * 1.1;
+            }
+            public Vendedor(string nombre, int dni, DateTime fecha, double salarioBase) : base(nombre, dni, fecha, salarioBase)
+            {
+
+            }
+            public override string ToString()
+            {
+                return "Vendedor " + base.ToString() + ", Salario: " + Salario + "\n------------";
+            }
+        }
+        */
+
+
+
     }
 }
