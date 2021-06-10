@@ -191,3 +191,276 @@ class Trabajador
     }
 }
 ~~~
+
+## Ejercicio 07
+
+Primero eliminamos la referencia cruzada entre clases que se mantenía con el _ingresador.Contador y adecuamos el método UnaLineaMas() para que se comporte como un manejador de eventos:
+~~~
+class ContadorDeLineas
+{
+    private int _cantLineas = 0;
+    public void Contar()
+    {
+        Ingresador _ingresador = new Ingresador();
+        _ingresador.OtraLinea += UnaLineaMas;
+        _ingresador.Ingresar();
+        Console.WriteLine($"Cantidad de líneas ingresadas: {_cantLineas}");
+    }
+    public void UnaLineaMas(object sender, EventArgs e) => _cantLineas++;
+}
+~~~
+
+Por últiimo, se creo el disparador del evento y sus metodos de encolado. Dentro de la función Ingresar(), una vez se verifique que no es una linea vacía, se dispara el evento, el cual hace que se sume una linea al contador.
+~~~
+class Ingresador
+{
+    private EventHandler _otraLinea;
+    public event EventHandler OtraLinea
+    {
+        add
+        {
+            _otraLinea += value;
+        }
+        remove
+        {
+            _otraLinea -= value;
+        }
+    }
+    public void Ingresar()
+    {
+        string st = Console.ReadLine();
+        while (st != "")
+        {
+            _otraLinea(this, new EventArgs());
+            st = Console.ReadLine();
+        }
+    }
+}
+~~~
+
+## Ejercicio 08
+
+Primero definimos la clase Ingresador y su mpetodo Ingresar(). Este método debe permitir al usuario, ingresar lineas por consola e identificar si se trata de palabras, numeros o lineas en blanco. Para los dos últimos casos, se debe emitir un evento (distinto para cada uno) que sea escuchado en el Main:
+~~~
+class Ingresador
+    {
+        public void Ingresar()
+        {
+            string st = Console.ReadLine();
+            while (st != "fin")
+            {
+                if (st == "") Console.WriteLine("Aquí emitir si la linea es vacía");
+                if (int.TryParse(st, out int i)) Console.WriteLine("Aqui emitir el valor de i si la linea es un numero");;
+                st = Console.ReadLine();
+            }
+        }
+    }
+~~~
+Para poder emitir, debemos definir los emisores. En el caso del emisor de nuemro, ademas, debemos definir el tipo de argumento que emitirá (EventsHandlerArgs), ya que emitirá un valor numerico.
+~~~
+private EventHandler _lineaVaciaIngresada;
+public event EventHandler LineaVaciaIngresada
+{
+    add
+    {
+        _lineaVaciaIngresada += value;
+    }
+    remove
+    {
+        _lineaVaciaIngresada -= value;
+    }
+}
+private NumeroIngresadoEventHandler _nroIngresado;
+public event NumeroIngresadoEventHandler NroIngresado
+{
+    add
+    {
+        _nroIngresado += value;
+    }
+    remove
+    {
+        _nroIngresado -= value;
+    }
+}
+~~~
+El tipo de argumento emitido por el emisor, se define antes de la clase Ingresador:
+~~~
+public class NumeroIngresadoEventArgs : EventArgs
+{
+    public int Valor { get; set; }
+}
+delegate void NumeroIngresadoEventHandler(object sender, NumeroIngresadoEventArgs e);
+~~~
+
+De esta manera, podemos emitir desde nuestro método Ingresar():
+~~~
+public void Ingresar()
+{
+    string st = Console.ReadLine();
+    while (st != "fin")
+    {
+        if (st == "") _lineaVaciaIngresada(this, new EventArgs());
+        if (int.TryParse(st, out int i)) _nroIngresado(this, new NumeroIngresadoEventArgs(){Valor=i});
+        st = Console.ReadLine();
+    }
+}
+~~~
+
+## Ejercicio 09
+
+Primeramente, definimos la clase Temporizador y las propiedades Intervalo y Habilitado:
+~~~
+class Temporizador
+    {
+        private int _intervalo;
+        public int Intervalo
+        {
+            get
+            {
+                return _intervalo;
+            }
+            set
+            {
+                if (value >= 100) _intervalo = value;
+            }
+        }
+        private bool _habilitado;
+        public bool Habilitado
+        {
+            get
+            {
+                return _habilitado;
+            }
+            set
+            {
+                if (Intervalo != 0)
+                {
+                    _habilitado = value;
+                    if (value)
+                    {
+                        // Aqui debemos iniciar nuestro contador
+                    }
+                }
+            }
+        }
+}
+~~~
+
+La consigna nos dice que debemos manejar la devolución de un valor por medio de los eventos, por lo que se debe definir un EventHandler y sus respectivos argumentos (EventHandlerArgs):
+~~~
+public class TicEventArgs : EventArgs
+{
+    public int Tics { get; set; }
+}
+delegate void TicEventHandler(object sender, TicEventArgs e);
+~~~
+
+Ahora podemos definir el emisor de evntos en la clase Temporizador:
+~~~
+private TicEventHandler _tic;
+public event TicEventHandler Tic
+{
+    add
+    {
+        _tic += value;
+    }
+    remove
+    {
+        _tic -= value;
+    }
+}
+~~~
+
+Por último, definimos la clase que da inicio al contador y que emite los eventos:
+~~~
+private void Iniciar()
+{
+    int tics = 0;
+    while (Habilitado)
+    {
+        Thread.Sleep(Intervalo);
+        if (_tic != null)
+        {
+            _tic(this, new TicEventArgs() { Tics = tics });
+        }
+        tics++;
+    }
+}
+~~~
+
+Esta clase es inicializada cuando se habilita el sistema (Habilitado = true) y el intervalo está definido (Intervalo != 0).
+
+## Ejercicio 10
+
+Primero definimos la clase Articulo con sus propiedades Codigo y Precio, teniendo en cuenta las restricciones impuestas:
+~~~
+class Articulo
+    {
+        private int _precio;
+        public int Precio
+        {
+            get
+            {
+                return _precio;
+            }
+            set
+            {
+                if (value != _precio)
+                {
+                    // Aquí se emitirá el vento de cambio de precio
+                    _precio = value;
+                }
+            }
+        }
+        public int Codigo
+        {
+            get; set;
+        }
+    }
+~~~
+
+Luego se definen el delegado PrecioCambiadoEventHandler y la clase PrecioCambiadoEventArgs, conociendo los argumentos que se deberá emitir:
+~~~
+public class PrecioCambiadoEventArgs : EventArgs
+    {
+        public int Codigo { get; set; }
+        public int PrecioAnterior { get; set; }
+        public int PrecioNuevo { get; set; }
+    }
+
+delegate void PrecioCambiadoEventHandler(object sender, PrecioCambiadoEventArgs e);
+~~~
+
+Ahora estamos en condiciones de implementar el emisor de eventos y después llamrlo desde el setter de Precio:
+~~~
+    private PrecioCambiadoEventHandler _precioCambiado;
+    public event PrecioCambiadoEventHandler PrecioCambiado
+    {
+        add
+        {
+            _precioCambiado += value;
+        }
+        remove
+        {
+            _precioCambiado -= value;
+        }
+    }
+~~~
+Llamada al emisor:
+~~~
+ public int Precio
+    {
+        get
+        {
+            return _precio;
+        }
+        set
+        {
+            if (value != _precio)
+            {
+                _precioCambiado(this, new PrecioCambiadoEventArgs() { PrecioAnterior = _precio, PrecioNuevo = value, Codigo = this.Codigo });
+                _precio = value;
+            }
+        }
+    }
+~~~
