@@ -1,0 +1,4 @@
+9) Solicitar al usuario que ingrese el nombre por consola de dos archivo de texto. Si existen ambos se
+debe mostrar por consola un listado con cada una de las palabras que se encuentran en ambos
+archivos a la vez. Por ejemplo, si el primer archivo contiene el texto del primer párrafo del punto 8, y
+el segundo archivo contiene este párrafo, la salida debería ser:
