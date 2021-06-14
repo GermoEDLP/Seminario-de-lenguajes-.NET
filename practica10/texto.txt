@@ -1,0 +1,5 @@
+Hola mundo
+Segunda linea
+Tercera Linea
+Codificar un método asincrónico que devuelva un Task<string> con el contenido de un archivo
+de texto cuyo nombre se pasa como parámetro.
