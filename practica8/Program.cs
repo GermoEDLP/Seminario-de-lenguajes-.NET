@@ -219,8 +219,8 @@ namespace practica8
                  Console.WriteLine("");
              }
          }
-        */
-
+        
+*/
         /*
         * ==================
         * Ejercicio       06
@@ -249,7 +249,7 @@ namespace practica8
 
         /*
         * ==================
-        * Ejercicio       08
+        * Ejercicio       07
         * ==================
         
           static void Main()
@@ -449,69 +449,75 @@ namespace practica8
             }
         }
         */
+        /*
+        * ==================
+        * Ejercicio       10
+        * ==================
 
-        static void Main()
-        {
-            Articulo a = new Articulo();
-            a.PrecioCambiado += precioCambiado;
-            a.Codigo = 1;
-            a.Precio = 10;
-            a.Precio = 12;
-            a.Precio = 12;
-            a.Precio = 14;
-            Console.Read();
-        }
-        public static void precioCambiado(object sender, PrecioCambiadoEventArgs e)
-        {
-            string texto = $"Artículo {e.Codigo} valía {e.PrecioAnterior}";
-            texto += $" y ahora vale {e.PrecioNuevo}";
-            Console.WriteLine(texto);
-        }
-    }
-
-    public class PrecioCambiadoEventArgs : EventArgs
-    {
-        public int Codigo { get; set; }
-        public int PrecioAnterior { get; set; }
-        public int PrecioNuevo { get; set; }
-    }
-
-    delegate void PrecioCambiadoEventHandler(object sender, PrecioCambiadoEventArgs e);
-
-    class Articulo
-    {
-        private int _precio;
-        public int Precio
-        {
-            get
-            {
-                return _precio;
-            }
-            set
-            {
-                if (value != _precio)
+          static void Main()
                 {
-                    _precioCambiado(this, new PrecioCambiadoEventArgs() { PrecioAnterior = _precio, PrecioNuevo = value, Codigo = this.Codigo });
-                    _precio = value;
+                    Articulo a = new Articulo();
+                    a.PrecioCambiado += precioCambiado;
+                    a.Codigo = 1;
+                    a.Precio = 10;
+                    a.Precio = 12;
+                    a.Precio = 12;
+                    a.Precio = 14;
+                    Console.Read();
+                }
+                public static void precioCambiado(object sender, PrecioCambiadoEventArgs e)
+                {
+                    string texto = $"Artículo {e.Codigo} valía {e.PrecioAnterior}";
+                    texto += $" y ahora vale {e.PrecioNuevo}";
+                    Console.WriteLine(texto);
                 }
             }
-        }
-        public int Codigo
-        {
-            get; set;
-        }
 
-        private PrecioCambiadoEventHandler _precioCambiado;
-        public event PrecioCambiadoEventHandler PrecioCambiado
-        {
-            add
+            public class PrecioCambiadoEventArgs : EventArgs
             {
-                _precioCambiado += value;
+                public int Codigo { get; set; }
+                public int PrecioAnterior { get; set; }
+                public int PrecioNuevo { get; set; }
             }
-            remove
+
+            delegate void PrecioCambiadoEventHandler(object sender, PrecioCambiadoEventArgs e);
+
+            class Articulo
             {
-                _precioCambiado -= value;
-            }
-        }
+                private int _precio;
+                public int Precio
+                {
+                    get
+                    {
+                        return _precio;
+                    }
+                    set
+                    {
+                        if (value != _precio)
+                        {
+                            _precioCambiado(this, new PrecioCambiadoEventArgs() { PrecioAnterior = _precio, PrecioNuevo = value, Codigo = this.Codigo });
+                            _precio = value;
+                        }
+                    }
+                }
+                public int Codigo
+                {
+                    get; set;
+                }
+
+                private PrecioCambiadoEventHandler _precioCambiado;
+                public event PrecioCambiadoEventHandler PrecioCambiado
+                {
+                    add
+                    {
+                        _precioCambiado += value;
+                    }
+                    remove
+                    {
+                        _precioCambiado -= value;
+                    }
+                }
+        */
+
     }
 }

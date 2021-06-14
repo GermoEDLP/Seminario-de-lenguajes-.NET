@@ -185,7 +185,6 @@ namespace practica10
         * ==================
         * Ejercicio       08
         * ==================
-
           static void Main(string[] args)
          {
              List<Task> tareas = new List<Task>();
@@ -193,25 +192,27 @@ namespace practica10
              {
                  for (int b = a + 2; b <= a + 4; b++)
                  {
-                     int[] parametros = {a,b};
-                     tareas.Add(Task.Factory.StartNew((p)=>Sumatoria((int[])p), parametros));
+                     tareas.Add(Task.Factory.StartNew((p)=>{
+                         int[] vector = p as int[];
+                         Sumatoria(vector[0], vector[1]);
+                     }, new int[]{a,b}));
                  }
              }
              Task.WaitAll(tareas.ToArray());
              Console.Read();
          }
 
-         static void Sumatoria(int[] p)
+         static void Sumatoria(int a, int b)
           {
               int total = 0;
-              for (int i = p[0]; i <= p[1]; i++)
+              for (int i = a; i <= b; i++)
               {
                   total += i;
               }
-              Console.WriteLine($"La sumatoria de {p[0]} a {p[1]} es: {total}");
+              Console.WriteLine($"La sumatoria de {a} a {b} es: {total}");
           } 
-        */
-
+        
+*/
         /*
         * ==================
         * Ejercicio       09

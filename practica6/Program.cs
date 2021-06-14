@@ -108,6 +108,7 @@ namespace practica6
                 e.AumentarSalario();
                 Console.WriteLine(e);
             }
+            Console.Read();
         }
 
         abstract class Empleado
@@ -229,8 +230,8 @@ namespace practica6
                 return "Vendedor " + base.ToString() + ", Salario: " + Salario + "\n------------";
             }
         }
-        */
-
+        
+*/
 
 
     }

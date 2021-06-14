@@ -278,7 +278,7 @@ namespace practica4
         /*
         EJERCICIO 07
         ============
-        
+        */
         static void Main(string[] args)
         {
             Nodo n = new Nodo(7);
@@ -297,6 +297,7 @@ namespace practica4
             Console.WriteLine(n.GetCantNodos());
             Console.WriteLine(n.GetValorMaximo());
             Console.WriteLine(n.GetValorMinimo());
+            Console.Read();
         }
 
         class Nodo
@@ -427,7 +428,7 @@ namespace practica4
             internal Elemento Izq { get => izq; set => izq = value; }
             internal Elemento Der { get => der; set => der = value; }
         }
-        */
+    
 
         /*
         EJERCICIO 08
@@ -690,68 +691,68 @@ namespace practica4
         }
 
         */
-        static void Main(string[] args)
-        {
-            Cuenta cuenta = new Cuenta();
-            cuenta.Imprimir();
-            cuenta = new Cuenta(30222111);
-            cuenta.Imprimir();
-            cuenta = new Cuenta("José Perez");
-            cuenta.Imprimir();
-            cuenta = new Cuenta("Maria Diaz", 20287544);
-            cuenta.Imprimir();
-            cuenta.Depositar(200);
-            cuenta.Imprimir();
-            cuenta.Extraer(150);
-            cuenta.Imprimir();
-            cuenta.Extraer(1500);
-        }
+        // static void Main(string[] args)
+        // {
+        //     Cuenta cuenta = new Cuenta();
+        //     cuenta.Imprimir();
+        //     cuenta = new Cuenta(30222111);
+        //     cuenta.Imprimir();
+        //     cuenta = new Cuenta("José Perez");
+        //     cuenta.Imprimir();
+        //     cuenta = new Cuenta("Maria Diaz", 20287544);
+        //     cuenta.Imprimir();
+        //     cuenta.Depositar(200);
+        //     cuenta.Imprimir();
+        //     cuenta.Extraer(150);
+        //     cuenta.Imprimir();
+        //     cuenta.Extraer(1500);
+        // }
 
-        class Cuenta
-        {
-            private string _nombre;
-            private int? _dni;
-            private double _monto;
-            public Cuenta()
-            {
-                _nombre = null;
-                _dni = null;
-            }
-            public Cuenta(string nombre) : this()
-            {
-                _nombre = nombre;
-            }
-            public Cuenta(int dni) : this()
-            {
-                _dni = dni;
-            }
-            public Cuenta(string nombre, int dni)
-            {
-                _nombre = nombre;
-                _dni = dni;
-            }
-            public void Imprimir()
-            {
-                string texto = "No especificado";
-                string dni = (_dni ?? 0).ToString();
-                Console.WriteLine("Nombre: {0}, DNI: {1}, Monto: {2}", _nombre?? texto, dni!="0"?_dni:texto, _monto);
-            }
-            public void Depositar(double monto)
-            {
-                _monto += monto;
-            }
-            public void Extraer(double monto)
-            {
-                if (_monto > monto)
-                {
-                    _monto -= monto;
-                }
-                else
-                {
-                    Console.WriteLine("Operación cancelada, monto insuficiente");
-                }
-            }
-        }
+        // class Cuenta
+        // {
+        //     private string _nombre;
+        //     private int? _dni;
+        //     private double _monto;
+        //     public Cuenta()
+        //     {
+        //         _nombre = null;
+        //         _dni = null;
+        //     }
+        //     public Cuenta(string nombre) : this()
+        //     {
+        //         _nombre = nombre;
+        //     }
+        //     public Cuenta(int dni) : this()
+        //     {
+        //         _dni = dni;
+        //     }
+        //     public Cuenta(string nombre, int dni)
+        //     {
+        //         _nombre = nombre;
+        //         _dni = dni;
+        //     }
+        //     public void Imprimir()
+        //     {
+        //         string texto = "No especificado";
+        //         string dni = (_dni ?? 0).ToString();
+        //         Console.WriteLine("Nombre: {0}, DNI: {1}, Monto: {2}", _nombre?? texto, dni!="0"?_dni:texto, _monto);
+        //     }
+        //     public void Depositar(double monto)
+        //     {
+        //         _monto += monto;
+        //     }
+        //     public void Extraer(double monto)
+        //     {
+        //         if (_monto > monto)
+        //         {
+        //             _monto -= monto;
+        //         }
+        //         else
+        //         {
+        //             Console.WriteLine("Operación cancelada, monto insuficiente");
+        //         }
+        //     }
+        // }
 
     }
 }

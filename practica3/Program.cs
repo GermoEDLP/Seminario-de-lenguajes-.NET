@@ -7,7 +7,7 @@ namespace practica3
 {
     class Program
     {
-        private const string Message = "No hay coherencia en la disposicion";
+        //     private const string Message = "No hay coherencia en la disposicion";
 
         /*
 EJERCICIO 01
@@ -464,7 +464,7 @@ k = Console.ReadKey(true);
         EJERCICIO 12
         ============
         
-                static void Main(string[] args)
+        static void Main(string[] args)
         {
             // Seteo el Queue
             int[] enteros = { 5, 3, 9, 7 };
@@ -486,7 +486,7 @@ k = Console.ReadKey(true);
             string texto_decodificado = decodificar(texto_codificado, codigo);
             Console.WriteLine("<<Texto decodificado>>");
             Console.WriteLine(texto_decodificado);
-
+            Console.Read();
         }
 
         static string decodificar(string texto, Queue q)
@@ -600,20 +600,20 @@ k = Console.ReadKey(true);
             return ' ';
         }
 
-    static Queue setearQueue(int[] enteros)
-    {
-        //Defino el queue
-        Queue codigo = new Queue();
-        // Lo inicilizo en base al array de enteros que recibe por parametro
-        for (int i = 0; i < enteros.Length; i++)
+        static Queue setearQueue(int[] enteros)
         {
-            codigo.Enqueue(enteros[i]);
+            //Defino el queue
+            Queue codigo = new Queue();
+            // Lo inicilizo en base al array de enteros que recibe por parametro
+            for (int i = 0; i < enteros.Length; i++)
+            {
+                codigo.Enqueue(enteros[i]);
 
+            }
+            return codigo;
         }
-        return codigo;
-    }
-        */
 
+*/
         /*
         EJERCICIO 13
         ============
@@ -684,19 +684,22 @@ k = Console.ReadKey(true);
         {
             Console.WriteLine("Ingrese un numero en base 10: ");
             int numero = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese la base nueva (menores a 10): ");
+            int baseNueva = Int32.Parse(Console.ReadLine());
             Console.WriteLine();
-            Console.WriteLine("El binario de {0} es: {1}", numero, base10abase2(numero));
+            Console.WriteLine("El binario de {0} es: {1}", numero, base10abase2(numero, baseNueva));
+            Console.Read();
 
         }
 
-        static string base10abase2(int num){
+        static string base10abase2(int num, int baseNueva){
             // Se cre la pila
             Stack pila = new Stack();
             // Mientras que el numero sea mayor que 1, voy a seguir operando
             while(num>1){
                 // Guardo el modulo de la division y divido de manera entera el numero
-                pila.Push(num%2);
-                num=num/2;
+                pila.Push(num%baseNueva);
+                num=num/baseNueva;
             }
             // Cunado termino guardo el restante en la pila. Aqui se encunetra el resto de la ultima operacion
             pila.Push(num);
@@ -780,92 +783,92 @@ k = Console.ReadKey(true);
 
     */
 
-            /*
-        EJERCICIO 17
-        ============
-        
-        static void Main(string[] args)
-        {
-            // Defino los operadores que voy a admitir
-            string[] operadores = new string[4] { "+", "-", "/", "*" };
-            // Utilizamos un tipo nullable para trabajar sobre la posibilidad de no ser calculado
-            double? total = null;
-            bool continua = true;
-            // Inicio el ciclo de obtención de expresiones
-            while (continua)
-            {
-                Console.WriteLine("Introduzca una operación básica de dos terminos ('fin' para terminar): ");
-        
-                string expresion = Console.ReadLine();
-                // Corta el ciclo si determina el 'fin'
-                if (expresion == "fin")
-                {
-                    continua = false;
-                    break;
-                }
-                try
-                {
-                    // Evalua cada operador de la lista de operadores
-                    for (int i = 0; i < operadores.Length; i++)
-                    {
-                        // Envia a calcular cada operador
-                        calcular(operadores[i], expresion, ref total);
-                    }
-                    if (total == null)
-                    {
-                        // Si no se cambio el valor, significa que no hay operadores conocidos en expresión
-                        // entonces lanzo una excepcion
-                        throw new Exception("La expresión no tiene ningún operador conocido");
-                    }
-                    Console.WriteLine($"Total: {total:0.00}");
-                }
-                catch (Exception e)
-                {
-                    // Excepción manejada desde el método que llama
-                    Console.WriteLine("Excepción manejada en el padre. Error: {0}", e.Message);
-                }
+        /*
+    EJERCICIO 17
+    ============
 
-                static void calcular(string operador, string expresion, ref double? total)
+    static void Main(string[] args)
+    {
+        // Defino los operadores que voy a admitir
+        string[] operadores = new string[4] { "+", "-", "/", "*" };
+        // Utilizamos un tipo nullable para trabajar sobre la posibilidad de no ser calculado
+        double? total = null;
+        bool continua = true;
+        // Inicio el ciclo de obtención de expresiones
+        while (continua)
+        {
+            Console.WriteLine("Introduzca una operación básica de dos terminos ('fin' para terminar): ");
+
+            string expresion = Console.ReadLine();
+            // Corta el ciclo si determina el 'fin'
+            if (expresion == "fin")
+            {
+                continua = false;
+                break;
+            }
+            try
+            {
+                // Evalua cada operador de la lista de operadores
+                for (int i = 0; i < operadores.Length; i++)
                 {
-                    // Defino el provedor de formato para la conversión de string a double.
-                    // Basicamente, que simbolo usará para identificar los decimales.
-                    NumberFormatInfo provider = new NumberFormatInfo();
-                    provider.NumberDecimalSeparator = ".";
-                    provider.NumberGroupSizes = new int[] { 3 };
-                    // Evaluo si el operador esta en la expresión
-                    if (expresion.IndexOf(operador) != -1)
+                    // Envia a calcular cada operador
+                    calcular(operadores[i], expresion, ref total);
+                }
+                if (total == null)
+                {
+                    // Si no se cambio el valor, significa que no hay operadores conocidos en expresión
+                    // entonces lanzo una excepcion
+                    throw new Exception("La expresión no tiene ningún operador conocido");
+                }
+                Console.WriteLine($"Total: {total:0.00}");
+            }
+            catch (Exception e)
+            {
+                // Excepción manejada desde el método que llama
+                Console.WriteLine("Excepción manejada en el padre. Error: {0}", e.Message);
+            }
+
+            static void calcular(string operador, string expresion, ref double? total)
+            {
+                // Defino el provedor de formato para la conversión de string a double.
+                // Basicamente, que simbolo usará para identificar los decimales.
+                NumberFormatInfo provider = new NumberFormatInfo();
+                provider.NumberDecimalSeparator = ".";
+                provider.NumberGroupSizes = new int[] { 3 };
+                // Evaluo si el operador esta en la expresión
+                if (expresion.IndexOf(operador) != -1)
+                {
+                    // Separo los terminos de la operación usando el operador
+                    string[] terminos = expresion.Split(operador);
+                    try
                     {
-                        // Separo los terminos de la operación usando el operador
-                        string[] terminos = expresion.Split(operador);
-                        try
+                        // Calculo según sea el operador
+                        switch (operador)
                         {
-                            // Calculo según sea el operador
-                            switch (operador)
-                            {
-                                case "+":
-                                    total = Convert.ToDouble(terminos[0], provider) + Convert.ToDouble(terminos[1], provider);
-                                    break;
-                                case "-":
-                                    total = Convert.ToDouble(terminos[0], provider) - Convert.ToDouble(terminos[1], provider);
-                                    break;
-                                case "/":
-                                    total = Convert.ToDouble(terminos[0], provider) / Convert.ToDouble(terminos[1], provider);
-                                    break;
-                                case "*":
-                                    total = Convert.ToDouble(terminos[0], provider) * Convert.ToDouble(terminos[1], provider);
-                                    break;
-                            }
+                            case "+":
+                                total = Convert.ToDouble(terminos[0], provider) + Convert.ToDouble(terminos[1], provider);
+                                break;
+                            case "-":
+                                total = Convert.ToDouble(terminos[0], provider) - Convert.ToDouble(terminos[1], provider);
+                                break;
+                            case "/":
+                                total = Convert.ToDouble(terminos[0], provider) / Convert.ToDouble(terminos[1], provider);
+                                break;
+                            case "*":
+                                total = Convert.ToDouble(terminos[0], provider) * Convert.ToDouble(terminos[1], provider);
+                                break;
                         }
-                        catch (Exception e)
-                        {
-                            // Excepción de error de conversión manejada y propagada.
-                            Console.WriteLine("La expresión no es valida.");
-                            throw;
-                        }
+                    }
+                    catch (Exception e)
+                    {
+                        // Excepción de error de conversión manejada y propagada.
+                        Console.WriteLine("La expresión no es valida.");
+                        throw;
                     }
                 }
             }
         }
+    }
 */
 
         /*

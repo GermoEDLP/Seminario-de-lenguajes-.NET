@@ -246,8 +246,8 @@ namespace practica7
             public override void SeDevuelve(Persona p) => Console.WriteLine("Pelicula clásica devuelta por persona");
             public void SeVende(Persona p) => Console.WriteLine("Vendiendo pélicula clásica a persona");
         }
-        */
-
+        
+*/
         /*
         * ==================
         * Ejercicio       04
@@ -391,8 +391,8 @@ namespace practica7
             public override void SeDevuelve(Persona p) => Console.WriteLine("Pelicula clásica devuelta por persona");
             public void SeVende(Persona p) => Console.WriteLine("Vendiendo pélicula clásica a persona");
         }          
-        */
-
+        
+*/
         /*
         * ==================
         * Ejercicio       05
@@ -543,7 +543,7 @@ namespace practica7
         * ==================
         * Ejercicio       06
         * ==================
-        
+    
           static void Main(string[] args)
         {
             System.Collections.ArrayList lista = new System.Collections.ArrayList() {
@@ -697,8 +697,8 @@ namespace practica7
                 return n1.Nombre.Length.CompareTo(n2.Nombre.Length);
             }
         }
-        */
-
+        
+*/
         /*
         * ==================
         * Ejercicio       07
@@ -868,7 +868,7 @@ namespace practica7
         * ==================
         * Ejercicio       08
         * ==================
-        
+        */
            static void Main(string[] args)
         {
             IEnumerable rango = Rango(6, 30, 3);
@@ -923,8 +923,7 @@ namespace practica7
                 }
             }
         }
-        */
-
+        
         /*
         * ==================
         * Ejercicio      09a 
@@ -983,11 +982,11 @@ namespace practica7
 
         /*
         * ==================
-        * Ejercicio       
+        * Ejercicio       10
         * ==================
         
           
-        */
+        
         static void Main(string[] args)
         {
             ArrayList autos = new ArrayList();
@@ -1103,5 +1102,6 @@ namespace practica7
             public string Marca { get; set; }
             public string Modelo { get; set; }
         }
+        */
     }
 }

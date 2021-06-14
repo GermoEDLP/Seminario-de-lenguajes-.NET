@@ -166,7 +166,7 @@ namespace practica9
         * ==================
         * Ejercicio       05
         * ==================
-        
+        */
                   static void Main(string[] args)
         {
             Nodo<int> n = new Nodo<int>(7);
@@ -301,7 +301,7 @@ namespace practica9
             }
 
         }
-        */
+        
         /*
         * ==================
         * Ejercicio       08
@@ -433,160 +433,160 @@ namespace practica9
             return lista;
         }
         */
-        static void Main(string[] args)
-        {
-            //SOlicito los nombres de los archivos a cotejar
-            Console.WriteLine("Ingrese nombre del archivo 1:");
-            String archivo1;
-            archivo1 = Console.ReadLine();
-            Console.WriteLine("Ingrese nombre del archivo 2:");
-            String archivo2;
-            archivo2 = Console.ReadLine();
-            // String archivo1 = "texto.txt";
-            // String archivo2 = "texto1.txt";
+        // static void Main(string[] args)
+        // {
+        //     //SOlicito los nombres de los archivos a cotejar
+        //     Console.WriteLine("Ingrese nombre del archivo 1:");
+        //     String archivo1;
+        //     archivo1 = Console.ReadLine();
+        //     Console.WriteLine("Ingrese nombre del archivo 2:");
+        //     String archivo2;
+        //     archivo2 = Console.ReadLine();
+        //     // String archivo1 = "texto.txt";
+        //     // String archivo2 = "texto1.txt";
 
-            StreamReader sw1 = null;
-            StreamReader sw2 = null;
-            try
-            {
-                //Leo los archivos
-                sw1 = new StreamReader(archivo1);
-                sw2 = new StreamReader(archivo2);
+        //     StreamReader sw1 = null;
+        //     StreamReader sw2 = null;
+        //     try
+        //     {
+        //         //Leo los archivos
+        //         sw1 = new StreamReader(archivo1);
+        //         sw2 = new StreamReader(archivo2);
 
-                //Obtengo las listas ordenadas
-                List<string> lista1 = listaOrdenada(sw1);
-                List<string> lista2 = listaOrdenada(sw2);
+        //         //Obtengo las listas ordenadas
+        //         List<string> lista1 = listaOrdenada(sw1);
+        //         List<string> lista2 = listaOrdenada(sw2);
 
-                //Me retorna la intersección de las listas
-                IEnumerable<string> listaCruzada = lista1.Intersect(lista2);
-                List<string> listaCruzadaL = listaCruzada.ToList();
+        //         //Me retorna la intersección de las listas
+        //         IEnumerable<string> listaCruzada = lista1.Intersect(lista2);
+        //         List<string> listaCruzadaL = listaCruzada.ToList();
 
-                List<ListaConPosiciones> listaConPosiciones = contarPosicones(listaCruzadaL, archivo1, archivo2);
+        //         List<ListaConPosiciones> listaConPosiciones = contarPosicones(listaCruzadaL, archivo1, archivo2);
 
-                foreach (ListaConPosiciones item in listaConPosiciones)
-                {
-                    Console.WriteLine($"Palabra: \"{item.Palabra}\"");
-                    Console.Write("|--Posiciones en Texto1:-->");
-                    foreach (int pos in item.getPosArch(1))
-                    {
-                        Console.Write($" {pos} ");
-                    }
-                    Console.WriteLine("");
-                    Console.Write("|--Posiciones en Texto2:-->");
-                    foreach (int pos in item.getPosArch(2))
-                    {
-                        Console.Write($" {pos} ");
-                    }
-                    Console.WriteLine("");
-                    Console.WriteLine("");
-                }
+        //         foreach (ListaConPosiciones item in listaConPosiciones)
+        //         {
+        //             Console.WriteLine($"Palabra: \"{item.Palabra}\"");
+        //             Console.Write("|--Posiciones en Texto1:-->");
+        //             foreach (int pos in item.getPosArch(1))
+        //             {
+        //                 Console.Write($" {pos} ");
+        //             }
+        //             Console.WriteLine("");
+        //             Console.Write("|--Posiciones en Texto2:-->");
+        //             foreach (int pos in item.getPosArch(2))
+        //             {
+        //                 Console.Write($" {pos} ");
+        //             }
+        //             Console.WriteLine("");
+        //             Console.WriteLine("");
+        //         }
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                //Cierro archivos
-                if (sw1 != null) sw1.Dispose();
-                if (sw2 != null) sw2.Dispose();
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Console.WriteLine(e.Message);
+        //     }
+        //     finally
+        //     {
+        //         //Cierro archivos
+        //         if (sw1 != null) sw1.Dispose();
+        //         if (sw2 != null) sw2.Dispose();
 
-            }
-            Console.ReadLine();
-        }
+        //     }
+        //     Console.ReadLine();
+        // }
 
-        public class ListaConPosiciones
-        {
-            private List<int> PosArch1 = new List<int>();
-            private List<int> PosArch2 = new List<int>();
+        // public class ListaConPosiciones
+        // {
+        //     private List<int> PosArch1 = new List<int>();
+        //     private List<int> PosArch2 = new List<int>();
 
-            public string Palabra;
+        //     public string Palabra;
 
-            public void addArch(int i, int dato)
-            {
-                if (i == 1)
-                {
-                    PosArch1.Add(dato);
-                }
-                else
-                {
-                    PosArch2.Add(dato);
-                }
-            }
+        //     public void addArch(int i, int dato)
+        //     {
+        //         if (i == 1)
+        //         {
+        //             PosArch1.Add(dato);
+        //         }
+        //         else
+        //         {
+        //             PosArch2.Add(dato);
+        //         }
+        //     }
 
-            public List<int> getPosArch(int i)
-            {
-                if (i == 1)
-                {
-                    return PosArch1;
-                }
-                else
-                {
-                    return PosArch2;
-                }
-            }
-        }
+        //     public List<int> getPosArch(int i)
+        //     {
+        //         if (i == 1)
+        //         {
+        //             return PosArch1;
+        //         }
+        //         else
+        //         {
+        //             return PosArch2;
+        //         }
+        //     }
+        // }
 
-        public static List<ListaConPosiciones> contarPosicones(List<string> lista, string archivo1, string archivo2)
-        {
+        // public static List<ListaConPosiciones> contarPosicones(List<string> lista, string archivo1, string archivo2)
+        // {
 
-            List<ListaConPosiciones> listaConPosiciones = new List<ListaConPosiciones>();
-            string archivo;
-            foreach (string palabraLista in lista)
-            {
-                StreamReader sw1 = new StreamReader(archivo1);
-                StreamReader sw2 = new StreamReader(archivo2);
-                ListaConPosiciones palabra = new ListaConPosiciones();
-                palabra.Palabra = palabraLista;
+        //     List<ListaConPosiciones> listaConPosiciones = new List<ListaConPosiciones>();
+        //     string archivo;
+        //     foreach (string palabraLista in lista)
+        //     {
+        //         StreamReader sw1 = new StreamReader(archivo1);
+        //         StreamReader sw2 = new StreamReader(archivo2);
+        //         ListaConPosiciones palabra = new ListaConPosiciones();
+        //         palabra.Palabra = palabraLista;
 
-                int largo = 0;
-                while ((archivo = sw1.ReadLine()) != null)
-                {
-                    int largoSub = 0;
-                    int largoInterno = archivo.Length;
-                    while (archivo.IndexOf(palabraLista) != -1 && archivo.IndexOf(palabraLista) != 0)
-                    {
-                        palabra.addArch(1, archivo.IndexOf(palabraLista) + largo + largoSub);
-                        archivo = archivo.Substring(archivo.IndexOf(palabraLista) + palabraLista.Length);
-                        largoSub = largoInterno - archivo.Length;
-                    }
-                    largo += largoInterno;
-                }
+        //         int largo = 0;
+        //         while ((archivo = sw1.ReadLine()) != null)
+        //         {
+        //             int largoSub = 0;
+        //             int largoInterno = archivo.Length;
+        //             while (archivo.IndexOf(palabraLista) != -1 && archivo.IndexOf(palabraLista) != 0)
+        //             {
+        //                 palabra.addArch(1, archivo.IndexOf(palabraLista) + largo + largoSub);
+        //                 archivo = archivo.Substring(archivo.IndexOf(palabraLista) + palabraLista.Length);
+        //                 largoSub = largoInterno - archivo.Length;
+        //             }
+        //             largo += largoInterno;
+        //         }
 
-                largo = 0;
-                while ((archivo = sw2.ReadLine()) != null)
-                {
-                    int largoSub = 0;
-                    int largoInterno = archivo.Length;
-                    while (archivo.IndexOf(palabraLista) != -1 && archivo.IndexOf(palabraLista) != 0)
-                    {
-                        palabra.addArch(2, archivo.IndexOf(palabraLista) + largo + largoSub);
-                        archivo = archivo.Substring(archivo.IndexOf(palabraLista) + palabraLista.Length);
-                        largoSub = largoInterno - archivo.Length;
-                    }
-                    largo += largoInterno;
-                }
-                listaConPosiciones.Add(palabra);
-            }
-            return listaConPosiciones;
-        }
+        //         largo = 0;
+        //         while ((archivo = sw2.ReadLine()) != null)
+        //         {
+        //             int largoSub = 0;
+        //             int largoInterno = archivo.Length;
+        //             while (archivo.IndexOf(palabraLista) != -1 && archivo.IndexOf(palabraLista) != 0)
+        //             {
+        //                 palabra.addArch(2, archivo.IndexOf(palabraLista) + largo + largoSub);
+        //                 archivo = archivo.Substring(archivo.IndexOf(palabraLista) + palabraLista.Length);
+        //                 largoSub = largoInterno - archivo.Length;
+        //             }
+        //             largo += largoInterno;
+        //         }
+        //         listaConPosiciones.Add(palabra);
+        //     }
+        //     return listaConPosiciones;
+        // }
 
-        public static List<string> listaOrdenada(StreamReader sw)
-        {
-            List<string> lista = new List<string>();
-            string archivo;
-            while ((archivo = sw.ReadLine()) != null)
-            {
-                //Divido el texto en palabras, usando como divisor el espacio
-                string[] arrayPalabras = archivo.Split(' ');
-                foreach (string palabra in arrayPalabras)
-                {
-                    lista.Add(palabra);
-                }
-            }
-            lista.Sort();
-            return lista;
-        }
+        // public static List<string> listaOrdenada(StreamReader sw)
+        // {
+        //     List<string> lista = new List<string>();
+        //     string archivo;
+        //     while ((archivo = sw.ReadLine()) != null)
+        //     {
+        //         //Divido el texto en palabras, usando como divisor el espacio
+        //         string[] arrayPalabras = archivo.Split(' ');
+        //         foreach (string palabra in arrayPalabras)
+        //         {
+        //             lista.Add(palabra);
+        //         }
+        //     }
+        //     lista.Sort();
+        //     return lista;
+        // }
     }
 }
